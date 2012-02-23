@@ -2,15 +2,15 @@
 
 # Form implementation generated from reading ui file 'mainwindow.ui'
 #
-# Created: Tue Feb 21 10:52:20 2012
+# Created: Wed Feb 22 11:38:36 2012
 #      by: pyside-uic 0.2.11 running on PySide 1.0.6
 #
 # WARNING! All changes made in this file will be lost!
 
 from PySide import QtCore, QtGui
-from newobject import Ui_Dialog
+from main import Ui_Main
 
-class Ui_MainWindow(object):
+class Ui_MainWindow(Ui_Main):
     def setupUi(self, MainWindow):
         MainWindow.setObjectName("MainWindow")
         MainWindow.resize(693, 576)
@@ -145,6 +145,7 @@ class Ui_MainWindow(object):
         QtCore.QObject.connect(self.actionFull_screen, QtCore.SIGNAL("activated()"), MainWindow.showFullScreen)
         QtCore.QObject.connect(self.actionLeave_Full_Screen, QtCore.SIGNAL("activated()"), MainWindow.showNormal)
         QtCore.QObject.connect(self.actionObject_tree, QtCore.SIGNAL("toggled(bool)"), self.dockWidget_2.setVisible)
+        QtCore.QObject.connect(self.pushButton_2, QtCore.SIGNAL("clicked()"), self.play)
         QtCore.QMetaObject.connectSlotsByName(MainWindow)
 
     def retranslateUi(self, MainWindow):
@@ -182,20 +183,4 @@ class Ui_MainWindow(object):
         self.actionFull_screen.setText(QtGui.QApplication.translate("MainWindow", "Full Screen", None, QtGui.QApplication.UnicodeUTF8))
         self.actionLeave_Full_Screen.setText(QtGui.QApplication.translate("MainWindow", "Leave Full Screen", None, QtGui.QApplication.UnicodeUTF8))
         self.actionObject_tree.setText(QtGui.QApplication.translate("MainWindow", "Object tree", None, QtGui.QApplication.UnicodeUTF8))
-
-    def new_object(self):
-		new_object = QtGui.QDialog()
-		new_object.uinh = Ui_Dialog()
-		new_object.uinh.setupUi(new_object)
-		new_object.setAttribute(QtCore.Qt.WA_DeleteOnClose)
-		new_object.exec_()
-
-if __name__ == "__main__":
-    import sys
-    app = QtGui.QApplication(sys.argv)
-    MainWindow = QtGui.QMainWindow()
-    ui = Ui_MainWindow()
-    ui.setupUi(MainWindow)
-    MainWindow.show()
-    sys.exit(app.exec_())
 

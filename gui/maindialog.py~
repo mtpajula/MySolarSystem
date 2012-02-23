@@ -1,0 +1,18 @@
+from controller import data_input
+
+class Ui_MainDIalog(object):
+
+    def create_object(self):
+        name = self.lineEdit.text()
+        mass = self.lineEdit_2.text()
+        print "speed: " + self.lineEdit_3.text()
+        print "dist: " + self.lineEdit_4.text()
+        print "angle of speed: " + self.lineEdit_5.text()
+        
+        datainput = data_input()
+        
+        datainput.print_info()
+        
+        datainput.create_object(name, mass)
+        
+        
