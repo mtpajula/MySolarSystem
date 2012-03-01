@@ -7,14 +7,16 @@ class controller(object):
         
         self.universe = Universe()
     
-    def create_object(self, name, mass):
+    def create_object(self, name, mass, radius):
         
-        print "create object:"
-        print "name: " + name
-        print "mass: " + mass
+        #print "create object:"
+        #print "name: " + name
+        #print "mass: " + mass
         
-        uni_object = Uni_Object(name, mass)
+        uni_object = Uni_Object(name, mass, radius)
         self.universe.add_object(uni_object)
+        
+        return uni_object
         
 
     def print_info(self):
@@ -22,6 +24,7 @@ class controller(object):
 
     def animate(self):
         print "animate"
-        
-        print self.universe.get_object_list()
+        for i in range(10):
+            self.universe.calculate_gravity()
+            self.universe.move_objects()
         
