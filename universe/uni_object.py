@@ -1,31 +1,35 @@
 
-
 class Uni_Object(object):
+    '''
+    This class represents any object in universe
+    '''
     
     def __init__(self, name, mass, radius):
         
         self.name = name
         self.mass = float(mass)
         
-        self.x = 0
-        self.y = 0
-        self.z = 0
-        
-        self.speed = 0
-        self.angle2d = 0
-        self.angle3d = 0
+        self.x = float(0)
+        self.y = float(0)
+        self.z = float(0)
+
+        self.speed_x = float(0)
+        self.speed_y = float(0)
+        self.speed_z = float(0)
         
         self.force_vector_list = []
         
         self.radius = float(radius)
         
         self.object_type = 3 # TODO object: Uni_Object_Type
-    
-    def set_speed(self, speed, angle2d, angle3d):
         
-        self.speed = speed
-        self.angle2d = angle2d
-        self.angle3d = angle3d
+        self.color = (255,255,255)
+
+    def set_speed(self, speed_x, speed_y, speed_z):
+        
+        self.speed_x = speed_x
+        self.speed_y = speed_y
+        self.speed_z = speed_z
         
     def set_location(self, x, y, z):
         
@@ -37,9 +41,10 @@ class Uni_Object(object):
         
         self.force_vector_list.append(force)
 
-    def get_force_vector_list(self):
+    def clear_force_vector_list(self):
         
-        return self.force_vector_list
+        self.force_vector_list = []
         
     def set_object_type(self, object_type):
+        
         self.object_type = object_type

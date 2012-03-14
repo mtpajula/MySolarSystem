@@ -2,12 +2,17 @@ from maths import Maths
 
 
 class Universe(object):
+    '''
+    Universe class has objects in it and it requires maths-object
+    '''
     
     def __init__(self):
         
         self.object_list = []
         
         self.maths = Maths()
+        
+        self.step = 0
     
     def add_object(self, uni_object):
         
@@ -41,7 +46,10 @@ class Universe(object):
         
         #print "Moving..."
         
+        self.step += 1
+        self.calculate_gravity()
+        
         for uni_object in self.object_list:
-            self.maths.move(uni_object)
-
+            self.maths.move(uni_object, self.step)
             
+        #print self.step

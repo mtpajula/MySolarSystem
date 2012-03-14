@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<simulation>
+	<universe id="001" step="2">
+		<maths time="10"/>
+		<object name="aurinko">
+			<mass>
+				20000000000.0
+			</mass>
+			<radius>
+				5.0
+			</radius>
+			<coordinates x="1.76851294088e-08" y="1.76842489215e-08" z="0.0"/>
+			<speed_vector x="1.17896266206e-09" y="1.17887461334e-09" z="0.0"/>
+			<style type="3">
+				<color b="255" g="255" r="255"/>
+			</style>
+		</object>
+		<object name="kuu">
+			<mass>
+				100000.0
+			</mass>
+			<radius>
+				5.0
+			</radius>
+			<coordinates x="200.137416867" y="200.047766172" z="0.0"/>
+			<speed_vector x="0.00916113367545" y="0.00318442651059" z="0.0"/>
+			<style type="3">
+				<color b="255" g="255" r="255"/>
+			</style>
+			<custom_forces>
+				<custom_force>
+					<vector x="-50.0" y="6.12303176911e-15" z="0.0"/>
+					<time start="50" stop="100"/>
+				</custom_force>
+				<custom_force>
+					<vector x="50.0" y="0.0" z="0.0"/>
+					<time start="200" stop="250"/>
+				</custom_force>
+				<custom_force>
+					<vector x="14.1421356237" y="14.1421356237" z="0.0"/>
+					<time start="300" stop="350"/>
+				</custom_force>
+				<custom_force>
+					<vector x="46.9846310393" y="17.1010071663" z="0.0"/>
+					<time start="577" stop="600"/>
+				</custom_force>
+				<custom_force>
+					<vector x="46.9846310393" y="17.1010071663" z="0.0"/>
+					<time start="None" stop="None"/>
+				</custom_force>
+			</custom_forces>
+		</object>
+	</universe>
+</simulation>

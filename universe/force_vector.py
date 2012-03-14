@@ -1,19 +1,15 @@
 
-class force_vector(object):
+class Force_Vector(object):
     
-    def __init__(self, force, angle2d, angle3d):
+    def __init__(self, x, y, z):
         
-        self.force = force
-        self.angle2d = angle2d
-        self.angle3d = angle3d
+        self.x = float(x)
+        self.y = float(y)
+        self.z = float(z)
         
         self.start = None
         self.stop = None
-    
-    def set_start(self, start):
         
+    def set_start_stop(self, start, stop):
         self.start = start
-        
-    def set_stop(self, stop):
-        
         self.stop = stop

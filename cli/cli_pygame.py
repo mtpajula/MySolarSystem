@@ -100,7 +100,7 @@ class Cli_Pygame(object):
         
         pygame.init()
         BG_colour = (0,0,0)
-        particle_colour = (255,255,255)
+        #particle_colour = (255,255,255)
         screen = pygame.display.set_mode((self.width, self.height))
 
         running = True
@@ -114,8 +114,7 @@ class Cli_Pygame(object):
 
             screen.fill(BG_colour)
             
-            self.controller.universe.calculate_gravity()
-            self.controller.universe.move_objects()
+            self.controller.animate_step()
             time += 1
             #print "time (day): " + str(time)
             
@@ -127,7 +126,7 @@ class Cli_Pygame(object):
                 ( x, y ) = self.scale(uni_object)
                 
                 #pygame.draw.rect(screen, particle_colour, (int(x), int(y), uni_object.radius), uni_object.radius)
-                pygame.draw.circle(screen, particle_colour, (int(x), int(y)), uni_object.object_type, 0)
+                pygame.draw.circle(screen, uni_object.color, (int(x), int(y)), uni_object.object_type, 0)
               
             pygame.display.flip()
         
