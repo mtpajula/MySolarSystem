@@ -1,31 +1,37 @@
+import os
 
 class Cli_Main(object):
+    '''
+    MySolarSystem CLI
+    '''
     
     def __init__(self, controller):
-        
+        '''
+        Ui for given controller-object
+        '''
         self.controller = controller
-        '''
-        self.commands = {
-                        "quit"
-                        }
-        '''
+
     def print_help(self):
         
         print "My Solar System Command list:"
-        print " - quit"
-        print " - play"
-        print " - pygame"
-        print " - new object"
-        print " - list objects"
-        print " - set"
-        print " - reverse"
-        print " - xplay"
-        print " - save"
-        print " - load"
-        print " - help"
+        print " - quit \t\t Leave program"
+        print " - play \t\t Simulate one step forward"
+        print " - pygame \t\t Simulation in pygame window"
+        print " - new object \t\t create new object"
+        print " - list objects \t List objects in current universe"
+        print " - set \t\t\t Set current situation as a startpoint"
+        print " - reverse \t\t Reverse back to startpoint"
+        print " - xplay \t\t Simulate x-axis changes monthly in one year"
+        print " - save [FILE] \t\t Save simulation in file"
+        print " - load [FILE] \t\t Load simulation from file"
+        print " - files \t\t List files in save-folder"
+        print " - help \t\t Print available command-list"
         
     def menu(self):
-        
+        '''
+        Start function for CLI
+        Prints help and asks for command
+        '''
         quit_cli = False
         
         self.print_help()
@@ -53,10 +59,10 @@ class Cli_Main(object):
                 self.list_uni_objects()
                 
             elif command == "set":
-                self.controller.set_startpoint()
+                self.set_copy_universe()
                 
             elif command == "reverse":
-                self.controller.reverse_startpoint()
+                self.reverse_universe()
                 
             elif command == "help":
                 self.print_help()
@@ -69,6 +75,9 @@ class Cli_Main(object):
                 
             elif command.startswith("load"):
                 self.cli_load(command)
+                
+            elif command == "files":
+                self.files()
                 
             else:
                 print "Unknown command.\n"
@@ -92,10 +101,36 @@ class Cli_Main(object):
     def new_uni_object(self):
         
         name = raw_input('name?\n')
-        mass = raw_input('mass?\n')
-        radius = raw_input('radius?\n')
+        mass = float(raw_input('mass * 10^21(kg)?\n')) * 10**21
+        radius = float(raw_input('radius (m)?\n'))
+        
+        print "Location (au):"
+        x = float(raw_input('x?\n'))
+        y = float(raw_input('y?\n'))
+        z = float(raw_input('z?\n'))
+        
+        x = x * self.controller.au
+        y = y * self.controller.au
+        z = z * self.controller.au
+        
+        print "Initial speed vector:"
+        speed = float(raw_input('speed (m/s)?\n'))
+        angle2d = float(raw_input('angle2d (degrees)?\n'))
+        angle3d = float(raw_input('angle3d (degrees)?\n'))
+        
+        print "Pygame style:"
+        obj_type = int(raw_input('Object size(int)?\n'))
+        
+        print "Color:"
+        r = int(raw_input('Red (0-255)?\n'))
+        g = int(raw_input('Green (0-255)?\n'))
+        b = int(raw_input('Blue (0-255)?\n'))
         
         new_obj = self.controller.create_object(name, mass, radius)
+        new_obj.set_location(x,y,z)
+        self.controller.set_object_angle_speed(new_obj,speed,angle2d,angle3d)
+        new_obj.set_object_type(obj_type)
+        new_obj.color = (r,g,b)
         
         print "done"
         
@@ -104,8 +139,8 @@ class Cli_Main(object):
         print "step: " + str(self.controller.universe.step)
         print "Name : mass,radius : x,y,z : speed_x,speed_y,speed_z"
         
-        for uni_object in self.controller.universe.get_object_list():
-            print uni_object.name +" : "+ str(uni_object.mass) +","+ str(uni_object.radius) +" : "+ str(uni_object.x) +","+ str(uni_object.y) +","+ str(uni_object.z) +" : "+ str(uni_object.speed_x) +","+ str(uni_object.speed_y) +","+ str(uni_object.speed_z)
+        for i, uni_object in enumerate(self.controller.universe.get_object_list()):
+            print "["+ str(i) +"]"+ uni_object.name +" : "+ str(uni_object.mass) +","+ str(uni_object.radius) +" : "+ str(uni_object.x) +","+ str(uni_object.y) +","+ str(uni_object.z) +" : "+ str(uni_object.speed_x) +","+ str(uni_object.speed_y) +","+ str(uni_object.speed_z)
             
             if len(uni_object.force_vector_list) > 0:
                 print "\tForce amount : angle2d : angle3d : start : stop"
@@ -115,40 +150,36 @@ class Cli_Main(object):
                     print "\t"+str(r)+" : "+str(angle2d)+" : "+str(angle3d)+" : "+str(force.start)+" : "+str(force.stop)
             
     def x_play(self):
+        self.list_uni_objects()
+        obj_num = int(raw_input('Object number?\n'))
+        time = float(raw_input('Step size in seconds?\n'))
         
-        running = True
+        print "Calculating..."
+        status, message = self.controller.animate(obj_num, time)
         
-        self.controller.save()
-        
-        while running:
-            
-            
-            day = 24
-            month = day*30
-            year = day*365
-            
-            if (self.controller.universe.step % month) == 0:
-                #print "month: " + str(self.controller.universe.step)
-                x = self.controller.universe.object_list[1].x / self.controller.copy_universe.object_list[1].x
-                x = str(x).replace(".",",")
-                print x
-            
-            if self.controller.universe.step > year:
-                running = False
-            
-            self.controller.animate_step()
+        print message
                 
     def cli_save(self, command):
         file_name = self.get_attribute(command)
         if file_name is not None:
             self.controller.file_name = file_name
-        self.controller.save()
+        status, message = self.controller.save()
+
+        if status is not False:
+            print "Simulation saved in " + self.controller.file_name
+
+        print message
         
     def cli_load(self, command):
         file_name = self.get_attribute(command)
         if file_name is not None:
             self.controller.file_name = file_name
-        self.controller.load()
+        status, message = self.controller.load()
+        
+        if status is not False:
+            print "Simulation loaded from " + self.controller.file_name
+
+        print message
         
     def get_attribute(self, command):
         clist = command.split(' ')
@@ -156,5 +187,16 @@ class Cli_Main(object):
             return clist[1]
         return None
         
+    def files(self):
+        files = self.controller.list_files_in_folder()
+        print files
+        
+    def set_copy_universe(self):
+        status, message = self.controller.set_startpoint()
+        print message
+        
+    def reverse_universe(self):
+        status, message = self.controller.reverse_startpoint()
+        print message
         
         

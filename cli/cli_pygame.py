@@ -4,8 +4,16 @@ from pygame import *
 
 
 class Cli_Pygame(object):
-    
+    '''
+    MySolarSystem simulation running in pygame window
+    '''
     def __init__(self, controller):
+        '''
+        Sets window size and based on given universe,
+        Sets scale and center of window
+        
+        Center point is largest mass object
+        '''
         
         self.controller = controller
         
@@ -20,6 +28,9 @@ class Cli_Pygame(object):
         self.scale_factor = self.get_scale_factor()
     
     def get_largest_mass_object(self):
+        '''
+        Finds largest mass object in universe
+        '''
         largest_mass_object = None
         largest_mass = 0
         
@@ -31,7 +42,9 @@ class Cli_Pygame(object):
         return largest_mass_object
         
     def get_max_dist(self, max_dist):
-        
+        '''
+        Finds max xy distange between universe objects
+        '''
         object_list = self.controller.universe.object_list
             
         amount = len(object_list)
@@ -57,6 +70,11 @@ class Cli_Pygame(object):
         return max_dist
         
     def get_scale_factor(self):
+        '''
+        Calculates scale factor using max distange in universe
+        
+        Max distange is scaled, that screen min / 2 represents max dist  
+        '''
         
         init_max = self.largest_mass_object.radius * 100
         max_dist = self.get_max_dist(init_max)
@@ -78,6 +96,9 @@ class Cli_Pygame(object):
         return scale_factor
         
     def scale(self, uni_object):
+        '''
+        Scales object locations for pygame window
+        '''
         
         #x = self.largest_mass_object.x - uni_object.x
         #y = self.largest_mass_object.y - uni_object.y
@@ -87,8 +108,8 @@ class Cli_Pygame(object):
         x = self.scale_factor * x
         y = self.scale_factor * y
         
-        x = self.width / 2 + x
-        y = self.height / 2 - y
+        x = int( self.width / 2 + x )
+        y = int( self.height / 2 - y )
         
         #print uni_object.name + " x: " + str(x)
         #print uni_object.name + " y: " + str(y)
@@ -97,10 +118,11 @@ class Cli_Pygame(object):
         
     
     def start_animation(self):
-        
+        '''
+        Execute pygame simulation
+        '''
         pygame.init()
         BG_colour = (0,0,0)
-        #particle_colour = (255,255,255)
         screen = pygame.display.set_mode((self.width, self.height))
 
         running = True
@@ -125,8 +147,7 @@ class Cli_Pygame(object):
                 
                 ( x, y ) = self.scale(uni_object)
                 
-                #pygame.draw.rect(screen, particle_colour, (int(x), int(y), uni_object.radius), uni_object.radius)
-                pygame.draw.circle(screen, uni_object.color, (int(x), int(y)), uni_object.object_type, 0)
+                pygame.draw.circle(screen, uni_object.color, (x, y), uni_object.object_type, 0)
               
             pygame.display.flip()
         

@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<simulation>
+	<universe id="001" step="0">
+		<maths time="3600"/>
+		<object name="aurinko">
+			<mass>
+				1.9891e+30
+			</mass>
+			<radius>
+				696000000.0
+			</radius>
+			<coordinates x="0.0" y="0.0" z="0.0"/>
+			<speed_vector x="0.0" y="0.0" z="0.0"/>
+			<style type="3">
+				<color b="255" g="255" r="255"/>
+			</style>
+		</object>
+		<object name="maa">
+			<mass>
+				5.9736e+24
+			</mass>
+			<radius>
+				6371000.0
+			</radius>
+			<coordinates x="1.496e+11" y="0" z="0"/>
+			<speed_vector x="1.82343886084e-12" y="29780.0" z="0.0"/>
+			<style type="3">
+				<color b="255" g="255" r="255"/>
+			</style>
+		</object>
+	</universe>
+	<universe id="002" step="0">
+		<maths time="3600"/>
+		<object name="aurinko">
+			<mass>
+				1.9891e+30
+			</mass>
+			<radius>
+				696000000.0
+			</radius>
+			<coordinates x="0.0" y="0.0" z="0.0"/>
+			<speed_vector x="0.0" y="0.0" z="0.0"/>
+			<style type="3">
+				<color b="255" g="255" r="255"/>
+			</style>
+		</object>
+		<object name="maa">
+			<mass>
+				5.9736e+24
+			</mass>
+			<radius>
+				6371000.0
+			</radius>
+			<coordinates x="1.496e+11" y="0" z="0"/>
+			<speed_vector x="1.82343886084e-12" y="29780.0" z="0.0"/>
+			<style type="3">
+				<color b="255" g="255" r="255"/>
+			</style>
+		</object>
+	</universe>
+</simulation>

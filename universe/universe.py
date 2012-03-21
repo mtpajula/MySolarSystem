@@ -15,16 +15,26 @@ class Universe(object):
         self.step = 0
     
     def add_object(self, uni_object):
+        '''
+        Appends Object to the object list
+        '''
         
         self.object_list.append(uni_object)
 
     def get_object_list(self):
+        '''
+        Returns Object list
+        '''
         
         return self.object_list
 
     def calculate_gravity(self):
+        '''
+        Calculates new values to Object's force vectors
+        By the law of gravity
         
-        #print "Calculating..."
+        It goes through each object pair.
+        '''
         
         amount = len(self.object_list)
         
@@ -43,8 +53,9 @@ class Universe(object):
                     return
                 
     def move_objects(self):
-        
-        #print "Moving..."
+        '''
+        Moves each object based on it's force vector(s)
+        '''
         
         self.step += 1
         self.calculate_gravity()
@@ -52,4 +63,3 @@ class Universe(object):
         for uni_object in self.object_list:
             self.maths.move(uni_object, self.step)
             
-        #print self.step

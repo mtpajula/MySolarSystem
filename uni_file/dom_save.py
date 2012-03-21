@@ -2,40 +2,62 @@ import xml.dom.minidom as dom
 import sys, re
 
 class Dom_Save(object):
+    '''
+    Saves given universies in file
+    '''
     
     def __init__(self):
         
         self.uni_list = []
 
     def add_universe(self, universe):
-        
+        '''
+        Sets given universe to saving-list
+        '''
         self.uni_list.append(universe)
 
     def save_simulation(self, file_name):
+        '''
+        Saves simulation in xml-file
+        '''
         
+        # Generate DOM representing simulation
         doc = self.generate_document()
         
+        # Pretty xml :)
         docString = doc.toprettyxml("\t", "\n", "utf-8")
-        #sprint docString
         
-        f = open(file_name, "w")
-        f.write(docString)
-        f.close()
+        # Write file
+        try:
+            f = open(file_name, "w")
+            f.write(docString)
+            f.close()
+            
+            return True, "Ok"
+        except IOError:
+            return False, "Failed to write file"
         
     
     def generate_document(self):
+        '''
+        Generates DOM representing simulation
+        '''
         
         # root
         doc = dom.Document()
         root = doc.createElement("simulation")
         doc.appendChild(root)
         
+        # Loop given universes
         for i, universe in enumerate(self.uni_list):
             root.appendChild(self.generate_universe(doc, universe, i))
         
         return doc
         
     def generate_universe(self, doc, universe, i):
+        '''
+        Returns universe in DOM
+        '''
         
         # universe
         uni = doc.createElement("universe")
@@ -54,6 +76,9 @@ class Dom_Save(object):
         return uni
 
     def generate_object(self, doc, uni_object):
+        '''
+        Returns Object in DOM
+        '''
         
         obj = doc.createElement("object")
         
@@ -109,6 +134,9 @@ class Dom_Save(object):
         return obj
         
     def generate_force(self, doc, force):
+        '''
+        Returns forces in DOM
+        '''
         
         f = doc.createElement("custom_force")
         
