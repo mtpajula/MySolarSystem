@@ -214,7 +214,8 @@ class Maths(object):
         else:
             angle2d = 90
         
-        r = math.sqrt(x**2 + y**2 + z**2)
+        r = self.get_vector_lenght(x,y,z)
+        
         angle3d = math.degrees( math.asin( z/r ) )
         
         return ( r, angle2d, angle3d )

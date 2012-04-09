@@ -1,0 +1,165 @@
+<?xml version="1.0" encoding="utf-8"?>
+<simulation>
+	<universe id="001" step="7605">
+		<maths time="3600"/>
+		<object name="aurinko">
+			<mass>
+				1.9891e+30
+			</mass>
+			<radius>
+				696000000.0
+			</radius>
+			<coordinates x="-2088469.81149" y="3082410.46101" z="0.0"/>
+			<speed_vector x="-0.222978054111" y="0.0568384336255" z="0.0"/>
+			<style type="6">
+				<color b="255" g="0" r="255"/>
+			</style>
+		</object>
+		<object name="merkurius">
+			<mass>
+				3.302e+23
+			</mass>
+			<radius>
+				2440000.0
+			</radius>
+			<coordinates x="50293369692.3" y="29360907187.7" z="0.0"/>
+			<speed_vector x="-23957.5978611" y="41218.9742631" z="0.0"/>
+			<style type="3">
+				<color b="105" g="105" r="105"/>
+			</style>
+		</object>
+		<object name="venus">
+			<mass>
+				4.8685e+24
+			</mass>
+			<radius>
+				6052000.0
+			</radius>
+			<coordinates x="-53199041015.0" y="-93562427078.5" z="0.0"/>
+			<speed_vector x="30543.0186124" y="-17376.1895341" z="0.0"/>
+			<style type="3">
+				<color b="165" g="32" r="218"/>
+			</style>
+		</object>
+		<object name="maa">
+			<mass>
+				5.9736e+24
+			</mass>
+			<radius>
+				6371000.0
+			</radius>
+			<coordinates x="1.01575457231e+11" y="-1.0981283866e+11" z="0.0"/>
+			<speed_vector x="21857.7856899" y="20201.4078129" z="0.0"/>
+			<style type="3">
+				<color b="178" g="170" r="32"/>
+			</style>
+		</object>
+		<object name="kuu">
+			<mass>
+				7.35e+22
+			</mass>
+			<radius>
+				1737000.0
+			</radius>
+			<coordinates x="1.01407079714e+11" y="-1.10175658685e+11" z="0.0"/>
+			<speed_vector x="22764.9188439" y="19802.4409468" z="0.0"/>
+			<style type="1">
+				<color b="190" g="190" r="190"/>
+			</style>
+		</object>
+		<object name="satellite">
+			<mass>
+				5000.0
+			</mass>
+			<radius>
+				1737000.0
+			</radius>
+			<coordinates x="1.27325190718e+11" y="-1.02119090817e+11" z="0.0"/>
+			<speed_vector x="14639.901796" y="22730.0440023" z="0.0"/>
+			<style type="1">
+				<color b="105" g="225" r="65"/>
+			</style>
+		</object>
+	</universe>
+	<universe id="002" step="7278">
+		<maths time="3600"/>
+		<object name="aurinko">
+			<mass>
+				1.9891e+30
+			</mass>
+			<radius>
+				696000000.0
+			</radius>
+			<coordinates x="-1825595.90945" y="2991235.80805" z="0.0"/>
+			<speed_vector x="-0.221419005744" y="0.0985042575052" z="0.0"/>
+			<style type="6">
+				<color b="255" g="0" r="255"/>
+			</style>
+		</object>
+		<object name="merkurius">
+			<mass>
+				3.302e+23
+			</mass>
+			<radius>
+				2440000.0
+			</radius>
+			<coordinates x="52709908717.8" y="-24577474709.3" z="0.0"/>
+			<speed_vector x="20329.6120212" y="43192.449409" z="0.0"/>
+			<style type="3">
+				<color b="105" g="105" r="105"/>
+			</style>
+		</object>
+		<object name="venus">
+			<mass>
+				4.8685e+24
+			</mass>
+			<radius>
+				6052000.0
+			</radius>
+			<coordinates x="-84415552579.2" y="-66813692177.0" z="0.0"/>
+			<speed_vector x="21813.7864158" y="-27538.2983566" z="0.0"/>
+			<style type="3">
+				<color b="165" g="32" r="218"/>
+			</style>
+		</object>
+		<object name="maa">
+			<mass>
+				5.9736e+24
+			</mass>
+			<radius>
+				6371000.0
+			</radius>
+			<coordinates x="73294785180.9" y="-1.30386962205e+11" z="0.0"/>
+			<speed_vector x="25977.5321266" y="14561.6931796" z="0.0"/>
+			<style type="3">
+				<color b="178" g="170" r="32"/>
+			</style>
+		</object>
+		<object name="kuu">
+			<mass>
+				7.35e+22
+			</mass>
+			<radius>
+				1737000.0
+			</radius>
+			<coordinates x="73395519947.5" y="-1.30009892318e+11" z="0.0"/>
+			<speed_vector x="24993.6239488" y="14829.5751427" z="0.0"/>
+			<style type="1">
+				<color b="190" g="190" r="190"/>
+			</style>
+		</object>
+		<object name="satellite">
+			<mass>
+				5000.0
+			</mass>
+			<radius>
+				1737000.0
+			</radius>
+			<coordinates x="1.07584444146e+11" y="-1.26589287774e+11" z="0.0"/>
+			<speed_vector x="18759.6245873" y="18724.073146" z="0.0"/>
+			<style type="1">
+				<color b="105" g="225" r="65"/>
+			</style>
+		</object>
+	</universe>
+</simulation>

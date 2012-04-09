@@ -25,6 +25,7 @@ class Cli_Main(object):
         print " - save [FILE] \t\t Save simulation in file"
         print " - load [FILE] \t\t Load simulation from file"
         print " - files \t\t List files in save-folder"
+        print " - edit \t\t Edit object"
         print " - help \t\t Print available command-list"
         
     def menu(self):
@@ -79,6 +80,9 @@ class Cli_Main(object):
             elif command == "files":
                 self.files()
                 
+            elif command == "edit":
+                self.edit_uni_object()
+                
             else:
                 print "Unknown command.\n"
                 self.print_help()
@@ -98,11 +102,29 @@ class Cli_Main(object):
         game.start_animation()
         
         
-    def new_uni_object(self):
+    def edit_uni_object(self):
+        self.list_uni_objects()
+        obj_num = int(raw_input('Object number?\n'))
+        
+        self.new_uni_object(obj_num)
+        
+    def new_uni_object(self, obj_num = None):
+        
+        if obj_num is not None:
+            new_obj = self.controller.universe.object_list[obj_num]
+            print new_obj.name +" Mass: "+ str(new_obj.mass) +" Radius: "+ str(new_obj.radius)
         
         name = raw_input('name?\n')
         mass = float(raw_input('mass * 10^21(kg)?\n')) * 10**21
         radius = float(raw_input('radius (m)?\n'))
+        
+        if obj_num is None:
+            new_obj = self.controller.create_object(name, mass, radius)
+        else:
+            print "xyz:"
+            print new_obj.x/self.controller.au
+            print new_obj.y/self.controller.au
+            print new_obj.z/self.controller.au
         
         print "Location (au):"
         x = float(raw_input('x?\n'))
@@ -114,11 +136,23 @@ class Cli_Main(object):
         z = z * self.controller.au
         
         print "Initial speed vector:"
+        
+        if obj_num is not None:
+            (speed, angle2d, angle3d) = self.controller.get_object_angle_speed(new_obj)
+            print "speed: "+ str(speed) +" angle2d: "+ str(angle2d) +" angle3d: "+ str(angle3d)
+        
         speed = float(raw_input('speed (m/s)?\n'))
-        angle2d = float(raw_input('angle2d (degrees)?\n'))
-        angle3d = float(raw_input('angle3d (degrees)?\n'))
+        if speed > 0:
+            angle2d = float(raw_input('angle2d (degrees)?\n'))
+            angle3d = float(raw_input('angle3d (degrees)?\n'))
+            self.controller.set_object_angle_speed(new_obj,speed,angle2d,angle3d)
         
         print "Pygame style:"
+        
+        if obj_num is not None:
+            (r,g,b) = new_obj.color
+            print "size: "+ str(new_obj.object_type) +" r: "+ str(r) +" g: "+ str(g) +" b: "+ str(b)
+        
         obj_type = int(raw_input('Object size(int)?\n'))
         
         print "Color:"
@@ -126,9 +160,7 @@ class Cli_Main(object):
         g = int(raw_input('Green (0-255)?\n'))
         b = int(raw_input('Blue (0-255)?\n'))
         
-        new_obj = self.controller.create_object(name, mass, radius)
         new_obj.set_location(x,y,z)
-        self.controller.set_object_angle_speed(new_obj,speed,angle2d,angle3d)
         new_obj.set_object_type(obj_type)
         new_obj.color = (r,g,b)
         

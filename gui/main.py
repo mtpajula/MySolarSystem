@@ -22,7 +22,7 @@ class Ui_Main(object):
     
     def new_object(self):
 		new_object = QtGui.QDialog()
-		new_object.uinh = Ui_NewObject(self.uni)
+		new_object.uinh = Ui_NewObject(self.controller)
 		new_object.uinh.setupUi(new_object)
 		new_object.setAttribute(QtCore.Qt.WA_DeleteOnClose)
 		new_object.exec_()

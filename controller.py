@@ -58,6 +58,11 @@ class controller(object):
         ( x, y, z ) = self.universe.maths.get_vector_xyz(speed, angle2d, angle3d)
         uni_object.set_speed(x, y, z)
         
+    def get_object_angle_speed(self, uni_object):
+        '''
+        Get speed vector in angle form
+        '''
+        return self.universe.maths.xyz_to_angle(uni_object.x, uni_object.y, uni_object.z)
 
     def animate_step(self):
         '''
