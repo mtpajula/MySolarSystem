@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file 'mainwindow.ui'
 #
-# Created: Wed Feb 22 13:13:53 2012
+# Created: Fri Apr 13 22:11:55 2012
 #      by: pyside-uic 0.2.11 running on PySide 1.0.6
 #
 # WARNING! All changes made in this file will be lost!
@@ -57,6 +57,7 @@ class Ui_MainWindow(object):
         self.horizontalLayout_2 = QtGui.QHBoxLayout(self.dockWidgetContents_2)
         self.horizontalLayout_2.setObjectName("horizontalLayout_2")
         self.treeWidget = QtGui.QTreeWidget(self.dockWidgetContents_2)
+        self.treeWidget.setContextMenuPolicy(QtCore.Qt.CustomContextMenu)
         self.treeWidget.setObjectName("treeWidget")
         item_0 = QtGui.QTreeWidgetItem(self.treeWidget)
         item_1 = QtGui.QTreeWidgetItem(item_0)
@@ -87,9 +88,6 @@ class Ui_MainWindow(object):
         self.pushButton = QtGui.QPushButton(self.dockWidgetContents_5)
         self.pushButton.setObjectName("pushButton")
         self.horizontalLayout_3.addWidget(self.pushButton)
-        self.pushButton_3 = QtGui.QPushButton(self.dockWidgetContents_5)
-        self.pushButton_3.setObjectName("pushButton_3")
-        self.horizontalLayout_3.addWidget(self.pushButton_3)
         self.dockWidget_3.setWidget(self.dockWidgetContents_5)
         MainWindow.addDockWidget(QtCore.Qt.DockWidgetArea(8), self.dockWidget_3)
         self.actionNew_Simulation = QtGui.QAction(MainWindow)
@@ -170,7 +168,6 @@ class Ui_MainWindow(object):
         self.label_2.setText(QtGui.QApplication.translate("MainWindow", "23240245", None, QtGui.QApplication.UnicodeUTF8))
         self.pushButton_2.setText(QtGui.QApplication.translate("MainWindow", "Play", None, QtGui.QApplication.UnicodeUTF8))
         self.pushButton.setText(QtGui.QApplication.translate("MainWindow", "Stop", None, QtGui.QApplication.UnicodeUTF8))
-        self.pushButton_3.setText(QtGui.QApplication.translate("MainWindow", "Settings", None, QtGui.QApplication.UnicodeUTF8))
         self.actionNew_Simulation.setText(QtGui.QApplication.translate("MainWindow", "New...", None, QtGui.QApplication.UnicodeUTF8))
         self.actionOpen.setText(QtGui.QApplication.translate("MainWindow", "Open...", None, QtGui.QApplication.UnicodeUTF8))
         self.actionTest_xml.setText(QtGui.QApplication.translate("MainWindow", "test.xml", None, QtGui.QApplication.UnicodeUTF8))

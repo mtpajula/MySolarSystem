@@ -6,6 +6,7 @@ def main_gui(controller):
     '''
     Function executes Qt GUI
     '''
+    '''
     from PySide import QtCore, QtGui
     from gui.mainwindow import Ui_MainWindow
     
@@ -16,6 +17,19 @@ def main_gui(controller):
     ui.setupUi(MainWindow)
     MainWindow.show()
     sys.exit(app.exec_())
+    '''
+    
+    from PySide import QtCore, QtGui
+    from gui.main import Ui_Main
+    
+    app = QtGui.QApplication(sys.argv)
+    MainWindow = QtGui.QMainWindow()
+
+    ui = Ui_Main(controller)
+    ui.startMain(MainWindow)
+    MainWindow.show()
+    sys.exit(app.exec_())
+    
     
 def main_cli(controller):
     '''

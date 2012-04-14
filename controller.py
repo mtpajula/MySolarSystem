@@ -23,6 +23,7 @@ class controller(object):
         # Folder where to save files and Default file name
         self.file_name = "test.xml"
         self.folder = "files/"
+        self.filePath = None
         
         # AU in meters for UI:s
         self.au = 149598000000
@@ -141,6 +142,12 @@ class controller(object):
         
         return False, "No saved universe"
         
+    def set_filePath(self, filePath):
+        '''
+        For Qt filepath load/save
+        '''
+        self.filePath = filePath
+        
     def save(self):
         '''
         Saves current simulation in file
@@ -151,14 +158,23 @@ class controller(object):
         if self.copy_universe is not None:
             s.add_universe(self.copy_universe)
         
-        return s.save_simulation(self.folder + self.file_name)
+        if self.filePath is None:
+            return s.save_simulation(self.folder + self.file_name)
+            
+        return s.save_simulation(self.filePath)
         
     def load(self):
         '''
         Loads simulation from file
         '''
         l = Dom_Load()
-        uni_list = l.load_simulation(self.folder + self.file_name)
+        
+        if self.filePath is None:
+            filePath = self.folder + self.file_name
+        else:
+            filePath = self.filePath
+        
+        uni_list = l.load_simulation(filePath)
         
         if uni_list is not None:
             

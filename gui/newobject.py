@@ -2,18 +2,17 @@
 
 # Form implementation generated from reading ui file 'newobject.ui'
 #
-# Created: Wed Feb 22 13:14:01 2012
+# Created: Fri Apr 13 19:55:08 2012
 #      by: pyside-uic 0.2.11 running on PySide 1.0.6
 #
 # WARNING! All changes made in this file will be lost!
 
 from PySide import QtCore, QtGui
-from main_newobject import Ui_MainNewObject
 
-class Ui_NewObject(Ui_MainNewObject):
+class Ui_NewObject(object):
     def setupUi(self, Dialog):
         Dialog.setObjectName("Dialog")
-        Dialog.resize(499, 349)
+        Dialog.resize(544, 397)
         self.verticalLayout = QtGui.QVBoxLayout(Dialog)
         self.verticalLayout.setObjectName("verticalLayout")
         self.label_3 = QtGui.QLabel(Dialog)
@@ -72,6 +71,12 @@ class Ui_NewObject(Ui_MainNewObject):
         self.label_8.setFont(font)
         self.label_8.setObjectName("label_8")
         self.gridLayout.addWidget(self.label_8, 4, 0, 1, 1)
+        self.lineEdit_7 = QtGui.QLineEdit(Dialog)
+        self.lineEdit_7.setObjectName("lineEdit_7")
+        self.gridLayout.addWidget(self.lineEdit_7, 7, 1, 1, 1)
+        self.label_9 = QtGui.QLabel(Dialog)
+        self.label_9.setObjectName("label_9")
+        self.gridLayout.addWidget(self.label_9, 7, 0, 1, 1)
         self.verticalLayout.addLayout(self.gridLayout)
         self.buttonBox = QtGui.QDialogButtonBox(Dialog)
         self.buttonBox.setOrientation(QtCore.Qt.Horizontal)
@@ -81,6 +86,7 @@ class Ui_NewObject(Ui_MainNewObject):
 
         self.retranslateUi(Dialog)
         QtCore.QObject.connect(self.buttonBox, QtCore.SIGNAL("accepted()"), self.create_object)
+        
         QtCore.QObject.connect(self.buttonBox, QtCore.SIGNAL("accepted()"), Dialog.accept)
         QtCore.QObject.connect(self.buttonBox, QtCore.SIGNAL("rejected()"), Dialog.reject)
         QtCore.QMetaObject.connectSlotsByName(Dialog)
@@ -89,10 +95,11 @@ class Ui_NewObject(Ui_MainNewObject):
         Dialog.setWindowTitle(QtGui.QApplication.translate("Dialog", "New Object", None, QtGui.QApplication.UnicodeUTF8))
         self.label_3.setText(QtGui.QApplication.translate("Dialog", "New object", None, QtGui.QApplication.UnicodeUTF8))
         self.label_2.setText(QtGui.QApplication.translate("Dialog", "Initial speed", None, QtGui.QApplication.UnicodeUTF8))
-        self.label_4.setText(QtGui.QApplication.translate("Dialog", "Distance from first object", None, QtGui.QApplication.UnicodeUTF8))
+        self.label_4.setText(QtGui.QApplication.translate("Dialog", "x", None, QtGui.QApplication.UnicodeUTF8))
         self.label_6.setText(QtGui.QApplication.translate("Dialog", "Angle of speed", None, QtGui.QApplication.UnicodeUTF8))
-        self.label_5.setText(QtGui.QApplication.translate("Dialog", "Angle from first object", None, QtGui.QApplication.UnicodeUTF8))
+        self.label_5.setText(QtGui.QApplication.translate("Dialog", "y", None, QtGui.QApplication.UnicodeUTF8))
         self.label_7.setText(QtGui.QApplication.translate("Dialog", "Name", None, QtGui.QApplication.UnicodeUTF8))
         self.label.setText(QtGui.QApplication.translate("Dialog", "Mass", None, QtGui.QApplication.UnicodeUTF8))
         self.label_8.setText(QtGui.QApplication.translate("Dialog", "Position:", None, QtGui.QApplication.UnicodeUTF8))
+        self.label_9.setText(QtGui.QApplication.translate("Dialog", "z", None, QtGui.QApplication.UnicodeUTF8))
 

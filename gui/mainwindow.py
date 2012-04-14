@@ -2,15 +2,14 @@
 
 # Form implementation generated from reading ui file 'mainwindow.ui'
 #
-# Created: Wed Feb 22 11:38:36 2012
+# Created: Fri Apr 13 19:54:41 2012
 #      by: pyside-uic 0.2.11 running on PySide 1.0.6
 #
 # WARNING! All changes made in this file will be lost!
 
 from PySide import QtCore, QtGui
-from main import Ui_Main
 
-class Ui_MainWindow(Ui_Main):
+class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
         MainWindow.setObjectName("MainWindow")
         MainWindow.resize(693, 576)
@@ -58,13 +57,9 @@ class Ui_MainWindow(Ui_Main):
         self.horizontalLayout_2 = QtGui.QHBoxLayout(self.dockWidgetContents_2)
         self.horizontalLayout_2.setObjectName("horizontalLayout_2")
         self.treeWidget = QtGui.QTreeWidget(self.dockWidgetContents_2)
+        self.treeWidget.setContextMenuPolicy(QtCore.Qt.CustomContextMenu)
         self.treeWidget.setObjectName("treeWidget")
-        item_0 = QtGui.QTreeWidgetItem(self.treeWidget)
-        item_1 = QtGui.QTreeWidgetItem(item_0)
-        item_0 = QtGui.QTreeWidgetItem(self.treeWidget)
-        item_1 = QtGui.QTreeWidgetItem(item_0)
-        item_0 = QtGui.QTreeWidgetItem(self.treeWidget)
-        item_1 = QtGui.QTreeWidgetItem(item_0)
+        
         self.horizontalLayout_2.addWidget(self.treeWidget)
         self.dockWidget_2.setWidget(self.dockWidgetContents_2)
         MainWindow.addDockWidget(QtCore.Qt.DockWidgetArea(1), self.dockWidget_2)
@@ -88,9 +83,6 @@ class Ui_MainWindow(Ui_Main):
         self.pushButton = QtGui.QPushButton(self.dockWidgetContents_5)
         self.pushButton.setObjectName("pushButton")
         self.horizontalLayout_3.addWidget(self.pushButton)
-        self.pushButton_3 = QtGui.QPushButton(self.dockWidgetContents_5)
-        self.pushButton_3.setObjectName("pushButton_3")
-        self.horizontalLayout_3.addWidget(self.pushButton_3)
         self.dockWidget_3.setWidget(self.dockWidgetContents_5)
         MainWindow.addDockWidget(QtCore.Qt.DockWidgetArea(8), self.dockWidget_3)
         self.actionNew_Simulation = QtGui.QAction(MainWindow)
@@ -140,12 +132,19 @@ class Ui_MainWindow(Ui_Main):
         self.menubar.addAction(self.menuAbout_MySolarSystem.menuAction())
 
         self.retranslateUi(MainWindow)
-        QtCore.QObject.connect(self.actionQuit, QtCore.SIGNAL("activated()"), MainWindow.close)
         QtCore.QObject.connect(self.actionNew_Object, QtCore.SIGNAL("activated()"), self.new_object)
+        QtCore.QObject.connect(self.pushButton_2, QtCore.SIGNAL("clicked()"), self.play)
+        QtCore.QObject.connect(self.pushButton, QtCore.SIGNAL("clicked()"), self.stop)
+        QtCore.QObject.connect(self.actionOpen, QtCore.SIGNAL("activated()"), self.openFile)
+        QtCore.QObject.connect(self.actionSave, QtCore.SIGNAL("activated()"), self.saveFile)
+        QtCore.QObject.connect(self.actionNew_Simulation, QtCore.SIGNAL("activated()"), self.newSimulation)
+        QtCore.QObject.connect(self.actionPrefenrences, QtCore.SIGNAL("activated()"), self.preferences)
+        QtCore.QObject.connect(self.actionAbout_MySolarSystem, QtCore.SIGNAL("activated()"), self.about)
+        
+        QtCore.QObject.connect(self.actionQuit, QtCore.SIGNAL("activated()"), MainWindow.close)
         QtCore.QObject.connect(self.actionFull_screen, QtCore.SIGNAL("activated()"), MainWindow.showFullScreen)
         QtCore.QObject.connect(self.actionLeave_Full_Screen, QtCore.SIGNAL("activated()"), MainWindow.showNormal)
         QtCore.QObject.connect(self.actionObject_tree, QtCore.SIGNAL("toggled(bool)"), self.dockWidget_2.setVisible)
-        QtCore.QObject.connect(self.pushButton_2, QtCore.SIGNAL("clicked()"), self.play)
         QtCore.QMetaObject.connectSlotsByName(MainWindow)
 
     def retranslateUi(self, MainWindow):
@@ -160,18 +159,12 @@ class Ui_MainWindow(Ui_Main):
         self.treeWidget.headerItem().setText(0, QtGui.QApplication.translate("MainWindow", "Objects", None, QtGui.QApplication.UnicodeUTF8))
         __sortingEnabled = self.treeWidget.isSortingEnabled()
         self.treeWidget.setSortingEnabled(False)
-        self.treeWidget.topLevelItem(0).setText(0, QtGui.QApplication.translate("MainWindow", "Sun", None, QtGui.QApplication.UnicodeUTF8))
-        self.treeWidget.topLevelItem(0).child(0).setText(0, QtGui.QApplication.translate("MainWindow", "Mass: 2000", None, QtGui.QApplication.UnicodeUTF8))
-        self.treeWidget.topLevelItem(1).setText(0, QtGui.QApplication.translate("MainWindow", "Earth", None, QtGui.QApplication.UnicodeUTF8))
-        self.treeWidget.topLevelItem(1).child(0).setText(0, QtGui.QApplication.translate("MainWindow", "Mass: 200", None, QtGui.QApplication.UnicodeUTF8))
-        self.treeWidget.topLevelItem(2).setText(0, QtGui.QApplication.translate("MainWindow", "Moon", None, QtGui.QApplication.UnicodeUTF8))
-        self.treeWidget.topLevelItem(2).child(0).setText(0, QtGui.QApplication.translate("MainWindow", "Mass: 10", None, QtGui.QApplication.UnicodeUTF8))
+        
         self.treeWidget.setSortingEnabled(__sortingEnabled)
         self.label.setText(QtGui.QApplication.translate("MainWindow", "Time unit:", None, QtGui.QApplication.UnicodeUTF8))
         self.label_2.setText(QtGui.QApplication.translate("MainWindow", "23240245", None, QtGui.QApplication.UnicodeUTF8))
         self.pushButton_2.setText(QtGui.QApplication.translate("MainWindow", "Play", None, QtGui.QApplication.UnicodeUTF8))
         self.pushButton.setText(QtGui.QApplication.translate("MainWindow", "Stop", None, QtGui.QApplication.UnicodeUTF8))
-        self.pushButton_3.setText(QtGui.QApplication.translate("MainWindow", "Settings", None, QtGui.QApplication.UnicodeUTF8))
         self.actionNew_Simulation.setText(QtGui.QApplication.translate("MainWindow", "New...", None, QtGui.QApplication.UnicodeUTF8))
         self.actionOpen.setText(QtGui.QApplication.translate("MainWindow", "Open...", None, QtGui.QApplication.UnicodeUTF8))
         self.actionTest_xml.setText(QtGui.QApplication.translate("MainWindow", "test.xml", None, QtGui.QApplication.UnicodeUTF8))
