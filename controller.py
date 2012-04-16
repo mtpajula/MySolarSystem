@@ -37,6 +37,88 @@ class controller(object):
         
         return uni_object
         
+    def delete_force(self, uni_object, delete_force_vector):
+        '''
+        delete force from object
+        '''
+        
+        for i, force_vector in enumerate(uni_object.force_vector_list):
+            if delete_force_vector == force_vector:
+                
+                uni_object.force_vector_list.pop(i)
+                
+                return True, 'Force removed'
+        
+        return False, 'Force not found'
+        
+    def delete_object(self, delete_uni_object):
+        '''
+        delete object from universe
+        '''
+        
+        for i, uni_object in enumerate(self.universe.object_list):
+            if delete_uni_object == uni_object:
+                
+                self.universe.object_list.pop(i)
+                
+                return True, 'Object removed'
+        
+        return False, 'Object not found'
+        
+    def validate_input(self, input_type, text, no_null = False):
+        '''
+        If input text is invalid, returns default value
+        '''
+        
+        if input_type == 'string':
+            
+            if text == "":
+                text =  'NONAME'
+            
+        elif input_type == 'int':
+            
+            if self.is_int(text):
+                text =  int(text)
+                
+                if no_null:
+                    if text == 0:
+                        text = 1
+            else:
+                if no_null:
+                    text = 1
+                else:
+                    text = 0
+            
+        elif input_type == 'float':
+            
+            if self.is_float(text):
+                text =  float(text)
+                
+                if no_null:
+                    if text == 0:
+                        text = 1.1
+            else:
+                if no_null:
+                    text = 1.0
+                else:
+                    text = 0.0
+        
+        return text
+        
+    def is_int(self, s):
+        try: 
+            int(s)
+            return True
+        except ValueError:
+            return False
+            
+    def is_float(self, s):
+        try:
+            float(s)
+            return True
+        except ValueError:
+            return False
+        
     def create_angle_force(self, uni_object, force, angle2d, angle3d):
         '''
         Creates force vector from force and it's angles
@@ -59,15 +141,30 @@ class controller(object):
         ( x, y, z ) = self.universe.maths.get_vector_xyz(speed, angle2d, angle3d)
         uni_object.set_speed(x, y, z)
         
+    def set_force_angle(self, force_vector, force, angle2d, angle3d):
+        '''
+        Sets force vector by transforming
+        speed,angle_xy,angle,xz => x,y,z (starting from the object location)
+        '''
+        
+        ( x, y, z ) = self.universe.maths.get_vector_xyz(force, angle2d, angle3d)
+        force_vector.set_force(x, y, z)
+        
     def get_object_angle_speed(self, uni_object):
         '''
         Get speed vector in angle form
         '''
-        return self.universe.maths.xyz_to_angle(uni_object.x, uni_object.y, uni_object.z)
-
+        return self.universe.maths.xyz_to_angle(uni_object.speed_x, uni_object.speed_y, uni_object.speed_z)
+    
+    def get_force_angle(self, force_vector):
+        '''
+        Get speed vector in angle form
+        '''
+        return self.universe.maths.xyz_to_angle(force_vector.x, force_vector.y, force_vector.z)
+    
     def animate_step(self):
         '''
-        Simulates universe ba one step
+        Simulates universe one step
         '''
 
         self.universe.move_objects()
@@ -186,7 +283,7 @@ class controller(object):
                 self.copy_universe = uni_list[1]
             else:
                 return False, "Not enough universe-objects"
-            return True, "Ok"
+            return True, "Load ok"
                 
         return False, "File not found"
             

@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<simulation>
+	<universe id="001" step="0">
+		<maths time="12"/>
+		<object name="NONAME">
+			<mass>
+				1.0
+			</mass>
+			<radius>
+				1.0
+			</radius>
+			<coordinates x="50.0" y="0.0" z="0.0"/>
+			<speed_vector x="0.0" y="0.0" z="0.0"/>
+			<style type="1">
+				<color b="255" g="255" r="255"/>
+			</style>
+			<custom_forces>
+				<custom_force>
+					<vector x="1.0" y="0.0" z="0.0"/>
+					<time start="None" stop="None"/>
+				</custom_force>
+			</custom_forces>
+		</object>
+	</universe>
+</simulation>

@@ -20,3 +20,12 @@ class Force_Vector(object):
         '''
         self.start = start
         self.stop = stop
+
+    def set_force(self, x, y, z):
+        '''
+        Set Force
+        '''
+        self.x = x
+        self.y = y
+        self.z = z
+        

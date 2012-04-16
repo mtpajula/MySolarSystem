@@ -209,14 +209,20 @@ class Maths(object):
         '''
         Transforms xyz-vector to angle-vector
         '''
+        
         if x != 0:
             angle2d = math.degrees( math.atan2( y,x ) )
         else:
-            angle2d = 90
+            angle2d = 0
+            if y != 0:
+                angle2d = 90
         
         r = self.get_vector_lenght(x,y,z)
         
-        angle3d = math.degrees( math.asin( z/r ) )
+        if r != 0:
+            angle3d = math.degrees( math.asin( z/r ) )
+        else:
+            angle3d = 0
         
         return ( r, angle2d, angle3d )
         

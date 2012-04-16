@@ -45,15 +45,8 @@
     <property name="title">
      <string>File</string>
     </property>
-    <widget class="QMenu" name="menuRecent_Simulations">
-     <property name="title">
-      <string>Recent Simulations</string>
-     </property>
-     <addaction name="actionTest_xml"/>
-    </widget>
     <addaction name="actionNew_Simulation"/>
     <addaction name="actionOpen"/>
-    <addaction name="menuRecent_Simulations"/>
     <addaction name="separator"/>
     <addaction name="actionSave"/>
     <addaction name="separator"/>
@@ -64,6 +57,7 @@
      <string>Edit</string>
     </property>
     <addaction name="actionNew_Object"/>
+    <addaction name="actionNew_Force_Vector"/>
    </widget>
    <widget class="QMenu" name="menuSettings">
     <property name="title">
@@ -134,54 +128,6 @@
          <string>Values</string>
         </property>
        </column>
-       <item>
-        <property name="text">
-         <string>Sun</string>
-        </property>
-        <property name="text">
-         <string/>
-        </property>
-        <item>
-         <property name="text">
-          <string>Mass</string>
-         </property>
-         <property name="text">
-          <string>2000</string>
-         </property>
-        </item>
-       </item>
-       <item>
-        <property name="text">
-         <string>Earth</string>
-        </property>
-        <property name="text">
-         <string/>
-        </property>
-        <item>
-         <property name="text">
-          <string>Mass</string>
-         </property>
-         <property name="text">
-          <string>200</string>
-         </property>
-        </item>
-       </item>
-       <item>
-        <property name="text">
-         <string>Moon</string>
-        </property>
-        <property name="text">
-         <string/>
-        </property>
-        <item>
-         <property name="text">
-          <string>Mass</string>
-         </property>
-         <property name="text">
-          <string>10</string>
-         </property>
-        </item>
-       </item>
       </widget>
      </item>
     </layout>
@@ -193,6 +139,20 @@
    </attribute>
    <widget class="QWidget" name="dockWidgetContents_5">
     <layout class="QHBoxLayout" name="horizontalLayout_3">
+     <item>
+      <widget class="QLabel" name="label">
+       <property name="text">
+        <string>Time unit:</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QLabel" name="label_2">
+       <property name="text">
+        <string>23240245</string>
+       </property>
+      </widget>
+     </item>
      <item>
       <spacer name="horizontalSpacer">
        <property name="orientation">
@@ -207,16 +167,28 @@
       </spacer>
      </item>
      <item>
-      <widget class="QLabel" name="label">
+      <widget class="QPushButton" name="pushButton_4">
        <property name="text">
-        <string>Time unit:</string>
+        <string>Set Startpoint</string>
        </property>
       </widget>
      </item>
      <item>
-      <widget class="QLabel" name="label_2">
+      <widget class="QPushButton" name="pushButton_3">
        <property name="text">
-        <string>23240245</string>
+        <string>Reverse</string>
+       </property>
+       <property name="checkable">
+        <bool>true</bool>
+       </property>
+       <property name="checked">
+        <bool>true</bool>
+       </property>
+       <property name="default">
+        <bool>false</bool>
+       </property>
+       <property name="flat">
+        <bool>false</bool>
        </property>
       </widget>
      </item>
@@ -298,27 +270,16 @@
     <string>Object tree</string>
    </property>
   </action>
+  <action name="actionNew_Force_Vector">
+   <property name="text">
+    <string>New Force Vector</string>
+   </property>
+  </action>
  </widget>
  <resources/>
  <connections>
   <connection>
    <sender>actionQuit</sender>
-   <signal>activated()</signal>
-   <receiver>MainWindow</receiver>
-   <slot>close()</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>-1</x>
-     <y>-1</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>371</x>
-     <y>265</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>actionNew_Object</sender>
    <signal>activated()</signal>
    <receiver>MainWindow</receiver>
    <slot>close()</slot>
@@ -378,22 +339,6 @@
     <hint type="destinationlabel">
      <x>106</x>
      <y>280</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>pushButton_2</sender>
-   <signal>clicked()</signal>
-   <receiver>MainWindow</receiver>
-   <slot>close()</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>459</x>
-     <y>531</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>346</x>
-     <y>287</y>
     </hint>
    </hints>
   </connection>
