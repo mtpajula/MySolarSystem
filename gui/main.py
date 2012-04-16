@@ -4,14 +4,10 @@ from main_objectmanager import Ui_MainObjectManager
 from main_preferences import Ui_MainPreferences
 from main_force import Ui_MainForce
 from about import Ui_About
-import time
+import sys, time
 from random import randint
 from controller import controller
 
-
-
-from threading import Thread, Condition
-from running_animation import RunningAnimation
 '''
         QtCore.QObject.connect(self.actionNew_Object, QtCore.SIGNAL("activated()"), self.new_object)
         QtCore.QObject.connect(self.pushButton_2, QtCore.SIGNAL("clicked()"), self.play)
@@ -25,8 +21,7 @@ from running_animation import RunningAnimation
 
 class Ui_Main(Ui_MainWindow):
     
-    def __init__(self, controller):
-        super(Ui_Main, self).__init__()
+    def __init__(self, controller, parent = None):
         
         self.controller = controller
         self.controller.file_name = "default.xml"
@@ -37,20 +32,30 @@ class Ui_Main(Ui_MainWindow):
         
         self.run = True
         
+        
     def startMain(self, MainWindow):
         
         self.setupUi(MainWindow)
         
-        self.graphicscene = QtGui.QGraphicsScene()
-        self.graphicsView.setScene(self.graphicscene)
-        self.work_thread  = RunningAnimation(self.graphicscene)
-        self.start()
+        self.helper = Helper()
+        self.native = Widget(self.helper, self)
+        
+        sizePolicy = QtGui.QSizePolicy(QtGui.QSizePolicy.Expanding, QtGui.QSizePolicy.Expanding)
+        sizePolicy.setHorizontalStretch(0)
+        sizePolicy.setVerticalStretch(0)
+        sizePolicy.setHeightForWidth(self.native.sizePolicy().hasHeightForWidth())
+        
+        self.native.setSizePolicy(sizePolicy)
+        self.horizontalLayout.addWidget(self.native)
+        
+        self.timer = QtCore.QTimer()
+        QtCore.QObject.connect(self.timer, QtCore.SIGNAL("timeout()"), self.native.animate)
         
         QtCore.QObject.connect(self.actionNew_Object, QtCore.SIGNAL("activated()"), self.new_object)
-        QtCore.QObject.connect(self.pushButton_2, QtCore.SIGNAL("clicked()"), self.work_thread.request_start)
+        QtCore.QObject.connect(self.pushButton_2, QtCore.SIGNAL("clicked()"), self.draw_qt)
         QtCore.QObject.connect(self.pushButton_4, QtCore.SIGNAL("clicked()"), self.do_set_startpoint)
         QtCore.QObject.connect(self.pushButton_3, QtCore.SIGNAL("clicked()"), self.do_reverse)
-        QtCore.QObject.connect(self.pushButton, QtCore.SIGNAL("clicked()"), self.work_thread.request_stop)
+        QtCore.QObject.connect(self.pushButton, QtCore.SIGNAL("clicked()"), self.stop_draw_qt)
         QtCore.QObject.connect(self.actionOpen, QtCore.SIGNAL("activated()"), self.openFile)
         QtCore.QObject.connect(self.actionNew_Force_Vector, QtCore.SIGNAL("activated()"), self.new_force)
         QtCore.QObject.connect(self.actionSave, QtCore.SIGNAL("activated()"), self.saveFile)
@@ -347,51 +352,107 @@ class Ui_Main(Ui_MainWindow):
     
     def stop(self):
         
-        print 'stop TODO'
+        print 'stop'
         
         self.run = False
     
     def start(self):
         
+        print 'start'
+        #self.work_thread.start()
         
-        self.work_thread.start()
-    
-    def closeEvent(self, event):    
-        self.work_thread.request_end()
         
-        '''
-        self.controller.animate()
-
-        bru = QtGui.QBrush()
-        bru.setColor(QtGui.QColor(255,255,000))
-        pen = QtGui.QPen()
-        pen.setColor(QtGui.QColor(255,000,255))
-        pen.setWidth(5)
-        self.graphicscene.addRect(50,100,50,100,pen,bru)
-        self.graphicscene.addText("test")
+            
+    def draw_qt(self):
         
-        '''
+        print 'timer start'
+        
+        self.helper
+        
+        self.timer.start(50)
+        
+    def stop_draw_qt(self):
+        
+        print 'timer stop'
+        self.timer.stop()
 
         
-        '''
-        self.item = QtGui.QGraphicsEllipseItem(0, 0, 40, 20)
-        self.graphicscene.addItem(self.item)
 
-        # Remember to hold the references to QTimeLine and QGraphicsItemAnimation instances.
-        # They are not kept anywhere, even if you invoke QTimeLine.start().
-        self.tl = QtCore.QTimeLine(10000)
-        self.tl.setFrameRange(0, 1000)
-        self.a = QtGui.QGraphicsItemAnimation()
-        self.a.setItem(self.item)
-        self.a.setTimeLine(self.tl)
-        self.tl.setDuration(10000)
 
-        # Each method determining an animation state (e.g. setPosAt, setRotationAt etc.)
-        # takes as a first argument a step which is a value between 0 (the beginning of the
-        # animation) and 1 (the end of the animation)
-        self.a.setPosAt(0, QtCore.QPointF(0, -10))
 
-        self.a.setRotationAt(1, 360)
+class Helper:
+    def __init__(self):
+        gradient = QtGui.QLinearGradient(QtCore.QPointF(50, -20), QtCore.QPointF(80, 20))
+        gradient.setColorAt(0.0, QtCore.Qt.white)
+        gradient.setColorAt(1.0, QtGui.QColor(0xa6, 0xce, 0x39))
 
-        self.tl.start()
-        '''
+        self.background = QtGui.QBrush(QtGui.QColor(64, 32, 64))
+        self.circleBrush = QtGui.QBrush(gradient)
+        self.circlePen = QtGui.QPen(QtCore.Qt.black)
+        self.circlePen.setWidth(1)
+        self.textPen = QtGui.QPen(QtCore.Qt.white)
+        self.textFont = QtGui.QFont()
+        self.textFont.setPixelSize(20)
+        
+        self.width = 200
+        self.height = 200
+
+    def paint(self, painter, event, elapsed):
+        painter.fillRect(event.rect(), self.background)
+        
+        painter.translate(painter.device().width()/2, painter.device().height()/2)
+
+        painter.save()
+        painter.setBrush(self.circleBrush)
+        painter.setPen(self.circlePen)
+        #painter.rotate(elapsed * 0.030)
+        
+        print elapsed
+        
+        r = elapsed/1000.0
+        n = 30
+        
+        #print r
+        
+        
+        for i in range(n):
+            painter.rotate(30)
+            radius = 0 + 120.0*((i+r)/n)
+            circleRadius = 1 + ((i+r)/n)*20
+            painter.drawEllipse(QtCore.QRectF(radius, -circleRadius,
+                                       circleRadius*2, circleRadius*2))
+
+        painter.restore()
+        
+        painter.setPen(QtGui.QColor(255, 0, 0))
+        painter.drawEllipse(QtCore.QRectF(0, 0, 200, 200))
+        painter.drawEllipse(-100, -100, 200, 200)
+        
+        
+        painter.setPen(self.textPen)
+        painter.setFont(self.textFont)
+        painter.drawText(QtCore.QRect(-50, -50, 100, 100), QtCore.Qt.AlignCenter, "mikko")
+
+
+class Widget(QtGui.QWidget):
+    def __init__(self, helper, parent = None):
+        QtGui.QWidget.__init__(self)
+        
+        self.helper = helper
+        self.elapsed = 0
+        #self.setFixedSize(200, 200)
+
+    def animate(self):
+        #print 'animate'
+        self.elapsed = (self.elapsed + self.sender().interval()) % 1000
+        self.repaint()
+
+    def paintEvent(self, event):
+        print 'paintevent'
+        painter = QtGui.QPainter()
+        painter.begin(self)
+        painter.setRenderHint(QtGui.QPainter.Antialiasing)
+        self.helper.paint(painter, event, self.elapsed)
+        painter.end()
+
+
