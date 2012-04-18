@@ -57,13 +57,15 @@ class Universe(object):
         '''
         Moves each object based on it's force vector(s)
         '''
+        for uni_object in self.object_list:
+            uni_object.clear_force()
         
         self.step += 1
         self.calc_time += self.maths.time
         self.calculate_gravity()
         
         for uni_object in self.object_list:
-            self.maths.move(uni_object, self.step)
+            self.maths.move(uni_object, self.calc_time)
             
     def get_day(self):
         '''

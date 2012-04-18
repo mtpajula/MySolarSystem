@@ -158,7 +158,8 @@ class Helper:
         
         painter.setPen(self.textPen)
         painter.setFont(self.textFont)
-        text = self.controller.units.time.str(self.controller.universe.calc_time)
+        time = self.controller.units.time.num(self.controller.universe.calc_time)
+        text = str(round(time, 1)) + ' ' +  self.controller.units.time.unit
         painter.drawText(QtCore.QRect(self.width/2-100, self.height/2-100, 100, 100), 
                             QtCore.Qt.AlignCenter, text)
             
@@ -172,7 +173,10 @@ class Widget(QtGui.QWidget):
 
     def animate(self):
         self.animating = True
-        self.helper.controller.animate_step()
+        
+        for i in range(self.helper.controller.steps_between_paint):
+            self.helper.controller.animate_step()
+        
         self.repaint()
         self.animating = False
 

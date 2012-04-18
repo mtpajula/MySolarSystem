@@ -19,6 +19,10 @@ class Ui_MainForce(Ui_Force):
         
         self.setupUi(Dialog)
         
+        self.label_2.setText('Start ('+self.controller.units.time.unit+')')
+        self.label_3.setText('Stop ('+self.controller.units.time.unit+')')
+        self.label_5.setText('Force ('+self.controller.units.force.unit+')')
+        
         if self.uni_object is not None:
             
             self.label_9 = QtGui.QLabel(Dialog)
@@ -30,12 +34,14 @@ class Ui_MainForce(Ui_Force):
                 
                 self.label.setText("Edit Force Vector")
                 
-                self.lineEdit.setText(str(self.force_vector.start))
-                self.lineEdit_2.setText(str(self.force_vector.stop))
+                if self.force_vector.start is not None:
+                    self.lineEdit.setText(str(self.controller.units.time.num(self.force_vector.start)))
+                if self.force_vector.stop is not None:
+                    self.lineEdit_2.setText(str(self.controller.units.time.num(self.force_vector.stop)))
                 
                 ( r, angle2d, angle3d ) = self.controller.get_force_angle(self.force_vector)
                 
-                self.lineEdit_3.setText(str(r))
+                self.lineEdit_3.setText(str(self.controller.units.force.num(r)))
                 self.lineEdit_4.setText(str(angle2d))
                 self.lineEdit_5.setText(str(angle3d))
                 
@@ -57,25 +63,20 @@ class Ui_MainForce(Ui_Force):
         
         if start != "":
             start = self.controller.validate_input('float',start)
+            start = self.controller.units.time.si(start)
         else:
             start = None
             
         if stop != "":
             stop = self.controller.validate_input('float',stop)
+            stop = self.controller.units.time.si(stop)
         else:
             stop = None
         
         force = self.controller.validate_input('float',self.lineEdit_3.text(),True)
+        force = self.controller.units.force.si(force)
         angle2d = self.controller.validate_input('float',self.lineEdit_4.text())
         angle3d = self.controller.validate_input('float',self.lineEdit_5.text())
-        
-        print 'FORCE:'
-        print start
-        print stop
-        print force
-        print angle2d
-        print angle3d
-        
         
         if self.force_vector is not None:
             self.controller.set_force_angle(self.force_vector, force, angle2d, angle3d)

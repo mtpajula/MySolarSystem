@@ -48,6 +48,18 @@ class Maths(object):
             # Between each xyz
             scale1 = speed1 / r
             scale2 = speed2 / r
+            scalef1 = gforce / r
+            
+            fx1 = scalef1 * x
+            fy1 = scalef1 * y
+            fz1 = scalef1 * z
+            
+            fx2 = scalef1 * x * -1
+            fy2 = scalef1 * y * -1
+            fz2 = scalef1 * z * -1
+            
+            uni_obj1.add_force(fx1, fy1, fz1)
+            uni_obj2.add_force(fx2, fy2, fz2)
             
             x1 = scale1 * x
             y1 = scale1 * y
@@ -156,7 +168,7 @@ class Maths(object):
         
         self.add_vector(uni_object, x, y, z)
         
-    def move(self, uni_object, step):
+    def move(self, uni_object, calc_time):
         '''
         Moves given object based on it's speed vector
         and it's enabled force vectors
@@ -168,19 +180,19 @@ class Maths(object):
             if force.start is None:
                 if force.stop is None:
                     self.force_vector_effect(force, uni_object)
-                elif force.stop > step:
+                elif force.stop > calc_time:
                     self.force_vector_effect(force, uni_object)   
-            elif force.start <= step:
+            elif force.start <= calc_time:
                 if force.stop is None:
                     self.force_vector_effect(force, uni_object)
-                elif force.stop > step:
+                elif force.stop > calc_time:
                     self.force_vector_effect(force, uni_object)
         
         # Rungekutta or not
         if self.rungekutta is True:
-            uni_object.x = self.runge_kutta_4(step, uni_object.x, uni_object.speed_x)
-            uni_object.y = self.runge_kutta_4(step, uni_object.y, uni_object.speed_y)
-            uni_object.z = self.runge_kutta_4(step, uni_object.z, uni_object.speed_z)
+            uni_object.x = self.runge_kutta_4(calc_time, uni_object.x, uni_object.speed_x)
+            uni_object.y = self.runge_kutta_4(calc_time, uni_object.y, uni_object.speed_y)
+            uni_object.z = self.runge_kutta_4(calc_time, uni_object.z, uni_object.speed_z)
         else:
             uni_object.x += uni_object.speed_x * self.time
             uni_object.y += uni_object.speed_y * self.time

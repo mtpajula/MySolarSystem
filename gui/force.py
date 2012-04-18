@@ -85,7 +85,7 @@ class Ui_Force(object):
         QtCore.QMetaObject.connectSlotsByName(Dialog)
 
     def retranslateUi(self, Dialog):
-        Dialog.setWindowTitle(QtGui.QApplication.translate("Dialog", "Dialog", None, QtGui.QApplication.UnicodeUTF8))
+        Dialog.setWindowTitle(QtGui.QApplication.translate("Dialog", " ", None, QtGui.QApplication.UnicodeUTF8))
         self.label.setText(QtGui.QApplication.translate("Dialog", "New Force Vector", None, QtGui.QApplication.UnicodeUTF8))
         self.label_2.setText(QtGui.QApplication.translate("Dialog", "Start", None, QtGui.QApplication.UnicodeUTF8))
         self.label_3.setText(QtGui.QApplication.translate("Dialog", "Stop", None, QtGui.QApplication.UnicodeUTF8))
@@ -94,5 +94,4 @@ class Ui_Force(object):
         self.label_6.setText(QtGui.QApplication.translate("Dialog", "Angle2d", None, QtGui.QApplication.UnicodeUTF8))
         self.label_7.setText(QtGui.QApplication.translate("Dialog", "Angle3d", None, QtGui.QApplication.UnicodeUTF8))
         self.label_8.setText(QtGui.QApplication.translate("Dialog", "Object", None, QtGui.QApplication.UnicodeUTF8))
-        #self.label_9.setText(QtGui.QApplication.translate("Dialog", "Aurinko", None, QtGui.QApplication.UnicodeUTF8))
 

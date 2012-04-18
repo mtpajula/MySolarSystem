@@ -19,6 +19,8 @@ class Uni_Object(object):
         
         self.force_vector_list = []
         
+        self.clear_force()
+        
         self.radius = float(radius)
         
         self.object_type = 3 # TODO object: Uni_Object_Type
@@ -59,3 +61,20 @@ class Uni_Object(object):
         '''
         
         self.object_type = object_type
+        
+    def add_force(self, x, y, z):
+        '''
+        Sums new given vector to current one
+        '''
+        self.force_x += x
+        self.force_y += y
+        self.force_z += z
+        
+    def clear_force(self):
+        '''
+        Clear force vector
+        '''
+        self.force_x = float(0)
+        self.force_y = float(0)
+        self.force_z = float(0)
+        

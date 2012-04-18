@@ -1,10 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <simulation>
 	<preferences>
-		<units dist_unit="au" mass_unit="mt" time_unit="d"/>
+		<units dist="au" force="N" mass="10-21kg" speed="kms" time="d"/>
+		<paint steps_between_paint="2" timer_time="10"/>
+		<background_color b="0" g="0" r="0"/>
 	</preferences>
 	<universe calc_time="0" id="001" step="0">
-		<maths time="3600"/>
+		<maths time="1800"/>
 		<object name="aurinko">
 			<mass>
 				1.9891e+30

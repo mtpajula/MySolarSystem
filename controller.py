@@ -13,23 +13,6 @@ class controller(object):
     '''
     
     def __init__(self):
-        '''
-        init new universe
-        
-        self.universe = Universe()
-        
-        # Holds the startpoint universe
-        self.copy_universe = None
-        
-        # Folder where to save files and Default file name
-        self.file_name = "test.xml"
-        self.folder = "files/"
-        self.filePath = None
-        
-        self.units = Units()
-        
-        self.pref_dict = {}
-        '''
         
         self.new_controller()
         
@@ -48,6 +31,9 @@ class controller(object):
         self.units = Units()
         
         self.pref_dict = {}
+        
+        self.timer_time = 10
+        self.steps_between_paint = 1
         
     
     def create_object(self, name, mass, radius):
@@ -177,10 +163,16 @@ class controller(object):
         Get speed vector in angle form
         '''
         return self.universe.maths.xyz_to_angle(uni_object.speed_x, uni_object.speed_y, uni_object.speed_z)
+        
+    def get_object_force_speed(self, uni_object):
+        '''
+        Get object force vector in angle form
+        '''
+        return self.universe.maths.xyz_to_angle(uni_object.force_x, uni_object.force_y, uni_object.force_z)
     
     def get_force_angle(self, force_vector):
         '''
-        Get speed vector in angle form
+        Get force vector in angle form
         '''
         return self.universe.maths.xyz_to_angle(force_vector.x, force_vector.y, force_vector.z)
     
@@ -274,6 +266,8 @@ class controller(object):
         '''
         Saves current simulation in file
         '''
+        self.pref_dict['paint'] = {'timer_time' : self.timer_time,
+                                    'steps_between_paint' : self.steps_between_paint } 
         
         self.pref_dict['units'] = self.units.save_units()
         s = Dom_Save(self.pref_dict)
@@ -304,6 +298,10 @@ class controller(object):
         
         if 'units' in self.pref_dict:
             self.units.load_units(self.pref_dict['units'])
+            
+        if 'paint' in self.pref_dict:
+            self.timer_time = int(self.pref_dict['paint']['timer_time'])
+            self.steps_between_paint = int(self.pref_dict['paint']['steps_between_paint'])
         
         if uni_list is not None:
             

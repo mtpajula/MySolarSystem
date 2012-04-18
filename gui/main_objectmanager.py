@@ -20,22 +20,26 @@ class Ui_MainObjectManager(Ui_ObjectManager):
         self.setupUi(Dialog)
         #self.Dialog = Dialog
         
+        self.label.setText('Mass ('+self.controller.units.mass.unit+')')
+        self.label_12.setText('Radius (km)')
+        self.label_4.setText('x ('+self.controller.units.dist.unit+')')
+        self.label_5.setText('y ('+self.controller.units.dist.unit+')')
+        self.label_6.setText('z ('+self.controller.units.dist.unit+')')
+        self.label_9.setText('Speed ('+self.controller.units.speed.unit+')')
         
         if self.uni_object is not None:
             self.label_3.setText(QtGui.QApplication.translate("Dialog", "Edit object", None, QtGui.QApplication.UnicodeUTF8))
             self.lineEdit.setText(self.uni_object.name)
-            self.lineEdit_2.setText(str(self.uni_object.mass))
-            self.lineEdit_3.setText(str(self.uni_object.radius))
+            self.lineEdit_2.setText(str(self.controller.units.mass.num(self.uni_object.mass)))
+            self.lineEdit_3.setText(str(self.controller.units.dist.to_unit(self.uni_object.radius, 'km')))
             
-            self.lineEdit_4.setText(str(self.uni_object.x))
-            self.lineEdit_5.setText(str(self.uni_object.y))
-            self.lineEdit_6.setText(str(self.uni_object.z))
+            self.lineEdit_4.setText(str(self.controller.units.dist.num(self.uni_object.x)))
+            self.lineEdit_5.setText(str(self.controller.units.dist.num(self.uni_object.y)))
+            self.lineEdit_6.setText(str(self.controller.units.dist.num(self.uni_object.z)))
             
-            ( r, angle2d, angle3d ) = self.controller.get_object_angle_speed(self.uni_object)
+            ( speed, angle2d, angle3d ) = self.controller.get_object_angle_speed(self.uni_object)
             
-            print 'r: '+str(r)
-            
-            self.lineEdit_7.setText(str(r))
+            self.lineEdit_7.setText(str(self.controller.units.speed.num(speed)))
             self.lineEdit_8.setText(str(angle2d))
             self.lineEdit_9.setText(str(angle3d))
             
@@ -55,11 +59,21 @@ class Ui_MainObjectManager(Ui_ObjectManager):
         mass = self.controller.validate_input('float',self.lineEdit_2.text(),True)
         radius = self.controller.validate_input('float',self.lineEdit_3.text(),True)
         
+        mass = self.controller.units.mass.si(mass)
+        radius = self.controller.units.dist.to_si_from(radius, 'km')
+        
         x = self.controller.validate_input('float',self.lineEdit_4.text())
         y = self.controller.validate_input('float',self.lineEdit_5.text())
         z = self.controller.validate_input('float',self.lineEdit_6.text())
         
+        x = self.controller.units.dist.si(x)
+        y = self.controller.units.dist.si(y)
+        z = self.controller.units.dist.si(z)
+        
         speed = self.controller.validate_input('float',self.lineEdit_7.text())
+        
+        speed = self.controller.units.speed.si(speed)
+        
         angle2d = self.controller.validate_input('float',self.lineEdit_8.text())
         angle3d = self.controller.validate_input('float',self.lineEdit_9.text())
         

@@ -51,11 +51,9 @@ class Dom_Load(object):
                 child_dict = {}
                 
                 if child.hasAttributes:
-                    print 'has attr'
-
+                    
                     for i in range(child.attributes.length):
                         a = child.attributes.item(i)
-                        print "%s = %s" % (a.name, a.value)
                         
                         child_dict[a.name] = a.value
                         

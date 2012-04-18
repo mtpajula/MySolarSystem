@@ -115,7 +115,7 @@ class Ui_Main(Ui_MainWindow):
             
             rootItem = QtGui.QTreeWidgetItem(root)
             rootItem.setText(0, 'Radius')
-            rootItem.setText(1, self.controller.units.dist.str(uni_object.radius))
+            rootItem.setText(1, self.controller.units.dist.to_unit_str(uni_object.radius, 'km'))
             
             locationRoot = QtGui.QTreeWidgetItem(root)
             locationRoot.setText(0, 'Location')
@@ -139,7 +139,7 @@ class Ui_Main(Ui_MainWindow):
             
             speedItem = QtGui.QTreeWidgetItem(speedRoot)
             speedItem.setText(0, 'speed')
-            speedItem.setText(1, str(speed))
+            speedItem.setText(1, self.controller.units.speed.str(speed))
             
             speedItem = QtGui.QTreeWidgetItem(speedRoot)
             speedItem.setText(0, 'angle2d')
@@ -148,6 +148,23 @@ class Ui_Main(Ui_MainWindow):
             speedItem = QtGui.QTreeWidgetItem(speedRoot)
             speedItem.setText(0, 'angle3d')
             speedItem.setText(1, str(angle3d))
+            
+            forceRoot = QtGui.QTreeWidgetItem(root)
+            forceRoot.setText(0, 'Force')
+            
+            ( force, angle2d, angle3d ) = self.controller.get_object_force_speed(uni_object)
+            
+            forceItem = QtGui.QTreeWidgetItem(forceRoot)
+            forceItem.setText(0, 'force')
+            forceItem.setText(1, self.controller.units.force.str(force))
+            
+            forceItem = QtGui.QTreeWidgetItem(forceRoot)
+            forceItem.setText(0, 'angle2d')
+            forceItem.setText(1, str(angle2d))
+            
+            forceItem = QtGui.QTreeWidgetItem(forceRoot)
+            forceItem.setText(0, 'angle3d')
+            forceItem.setText(1, str(angle3d))
             
             styleRoot = QtGui.QTreeWidgetItem(root)
             styleRoot.setText(0, 'Style')
@@ -172,17 +189,17 @@ class Ui_Main(Ui_MainWindow):
                 
                 forceItem = QtGui.QTreeWidgetItem(forceRoot)
                 forceItem.setText(0, 'start')
-                forceItem.setText(1, str(force.start))
+                forceItem.setText(1, self.controller.units.time.str(force.start))
                 
                 forceItem = QtGui.QTreeWidgetItem(forceRoot)
                 forceItem.setText(0, 'stop')
-                forceItem.setText(1, str(force.stop))
+                forceItem.setText(1, self.controller.units.time.str(force.stop))
                 
-                ( force, angle2d, angle3d ) = self.controller.get_force_angle(uni_object)
+                ( force, angle2d, angle3d ) = self.controller.get_force_angle(force)
                 
                 forceItem = QtGui.QTreeWidgetItem(forceRoot)
                 forceItem.setText(0, 'force')
-                forceItem.setText(1, str(force))
+                forceItem.setText(1, self.controller.units.force.str(force))
                 
                 forceItem = QtGui.QTreeWidgetItem(forceRoot)
                 forceItem.setText(0, 'angle2d')
@@ -234,7 +251,7 @@ class Ui_Main(Ui_MainWindow):
         if len(location) > 0:
             self.edit_uni_object = self.controller.universe.object_list[location[-1]]
             
-            if len(location) > 2 and location[-2] == 5:
+            if len(location) > 2 and location[-2] == 6:
                 print 'force on'
                 
                 self.edit_force = self.edit_uni_object.force_vector_list[location[-3]]
@@ -283,7 +300,6 @@ class Ui_Main(Ui_MainWindow):
 
     
     def edit(self):
-        pass
         
         if self.edit_uni_object is not None:
             
@@ -374,7 +390,7 @@ class Ui_Main(Ui_MainWindow):
     def start(self):
         
         print 'timer start'
-        self.timer.start(10)
+        self.timer.start(self.controller.timer_time)
 
 
 
