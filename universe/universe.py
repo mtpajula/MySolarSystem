@@ -13,6 +13,7 @@ class Universe(object):
         self.maths = Maths()
         
         self.step = 0
+        self.calc_time = 0
     
     def add_object(self, uni_object):
         '''
@@ -58,8 +59,33 @@ class Universe(object):
         '''
         
         self.step += 1
+        self.calc_time += self.maths.time
         self.calculate_gravity()
         
         for uni_object in self.object_list:
             self.maths.move(uni_object, self.step)
+            
+    def get_day(self):
+        '''
+        return in days the simulation has been run from startpoint
+        '''
+        divider = 3600*24
+        
+        return self.calc_time / divider
+        
+    def get_year(self):
+        '''
+        return in years the simulation has been run from startpoint
+        '''
+        divider = 3600*24*365
+        
+        return self.calc_time / divider
+        
+    def get_hour(self):
+        '''
+        return in hours the simulation has been run from startpoint
+        '''
+        divider = 3600
+        
+        return self.calc_time / divider
             

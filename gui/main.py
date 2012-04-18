@@ -7,55 +7,53 @@ from about import Ui_About
 import sys, time
 from random import randint
 from controller import controller
+from paint import Helper, Widget
 
-'''
-        QtCore.QObject.connect(self.actionNew_Object, QtCore.SIGNAL("activated()"), self.new_object)
-        QtCore.QObject.connect(self.pushButton_2, QtCore.SIGNAL("clicked()"), self.play)
-        QtCore.QObject.connect(self.pushButton, QtCore.SIGNAL("clicked()"), self.stop)
-        QtCore.QObject.connect(self.actionOpen, QtCore.SIGNAL("activated()"), self.openFile)
-        QtCore.QObject.connect(self.actionSave, QtCore.SIGNAL("activated()"), self.saveFile)
-        QtCore.QObject.connect(self.actionNew_Simulation, QtCore.SIGNAL("activated()"), self.newSimulation)
-        QtCore.QObject.connect(self.actionPrefenrences, QtCore.SIGNAL("activated()"), self.preferences)
-        QtCore.QObject.connect(self.actionAbout_MySolarSystem, QtCore.SIGNAL("activated()"), self.about)
-'''
 
 class Ui_Main(Ui_MainWindow):
     
     def __init__(self, controller, parent = None):
         
         self.controller = controller
-        self.controller.file_name = "default.xml"
-        self.controller.load()
         
         self.edit_uni_object = None
         self.edit_force = None
-        
-        self.run = True
-        
         
     def startMain(self, MainWindow):
         
         self.setupUi(MainWindow)
         
-        self.helper = Helper()
+        self.default_background_color = QtGui.QColor(64, 32, 64)
+        self.helper = Helper(self.controller, self.default_background_color)
         self.native = Widget(self.helper, self)
         
-        sizePolicy = QtGui.QSizePolicy(QtGui.QSizePolicy.Expanding, QtGui.QSizePolicy.Expanding)
-        sizePolicy.setHorizontalStretch(0)
-        sizePolicy.setVerticalStretch(0)
-        sizePolicy.setHeightForWidth(self.native.sizePolicy().hasHeightForWidth())
+        self.controller.file_name = "default.xml"
+        self.controller.load()
+        '''
+        self.controller.units.set_time_unit('d')
+        self.controller.units.set_dist_unit('au')
+        self.controller.units.set_mass_unit('mt')
+        '''
+        if 'background_color' in self.controller.pref_dict:
+            print 'background_color'
+            self.helper.load_background_color(self.controller.pref_dict['background_color'])
         
-        self.native.setSizePolicy(sizePolicy)
+        #sizePolicy = QtGui.QSizePolicy(QtGui.QSizePolicy.Expanding, QtGui.QSizePolicy.Expanding)
+        #sizePolicy.setHorizontalStretch(0)
+        #sizePolicy.setVerticalStretch(0)
+        #sizePolicy.setHeightForWidth(self.native.sizePolicy().hasHeightForWidth())
+        
+        #self.native.setSizePolicy(sizePolicy)
         self.horizontalLayout.addWidget(self.native)
         
         self.timer = QtCore.QTimer()
         QtCore.QObject.connect(self.timer, QtCore.SIGNAL("timeout()"), self.native.animate)
         
         QtCore.QObject.connect(self.actionNew_Object, QtCore.SIGNAL("activated()"), self.new_object)
-        QtCore.QObject.connect(self.pushButton_2, QtCore.SIGNAL("clicked()"), self.draw_qt)
+        QtCore.QObject.connect(self.pushButton_2, QtCore.SIGNAL("clicked()"), self.start)
         QtCore.QObject.connect(self.pushButton_4, QtCore.SIGNAL("clicked()"), self.do_set_startpoint)
         QtCore.QObject.connect(self.pushButton_3, QtCore.SIGNAL("clicked()"), self.do_reverse)
-        QtCore.QObject.connect(self.pushButton, QtCore.SIGNAL("clicked()"), self.stop_draw_qt)
+        QtCore.QObject.connect(self.pushButton, QtCore.SIGNAL("clicked()"), self.stop)
         QtCore.QObject.connect(self.actionOpen, QtCore.SIGNAL("activated()"), self.openFile)
         QtCore.QObject.connect(self.actionNew_Force_Vector, QtCore.SIGNAL("activated()"), self.new_force)
         QtCore.QObject.connect(self.actionSave, QtCore.SIGNAL("activated()"), self.saveFile)
@@ -103,14 +101,8 @@ class Ui_Main(Ui_MainWindow):
         (result, message) = self.controller.reverse_startpoint()
         self.refresh_tree()
         self.statusbar.showMessage(message)
-        
     
     def init_tree(self):
-        
-        self.edit_uni_object = None
-        self.edit_force = None
-        
-        self.statusbar.showMessage('')
         
         for uni_object in self.controller.universe.object_list:
             
@@ -119,26 +111,26 @@ class Ui_Main(Ui_MainWindow):
             
             rootItem = QtGui.QTreeWidgetItem(root)
             rootItem.setText(0, 'Mass')
-            rootItem.setText(1, str(uni_object.mass))
+            rootItem.setText(1, self.controller.units.mass.str(uni_object.mass))
             
             rootItem = QtGui.QTreeWidgetItem(root)
             rootItem.setText(0, 'Radius')
-            rootItem.setText(1, str(uni_object.radius))
+            rootItem.setText(1, self.controller.units.dist.str(uni_object.radius))
             
             locationRoot = QtGui.QTreeWidgetItem(root)
             locationRoot.setText(0, 'Location')
             
             locationItem = QtGui.QTreeWidgetItem(locationRoot)
             locationItem.setText(0, 'x')
-            locationItem.setText(1, str(uni_object.x))
+            locationItem.setText(1, self.controller.units.dist.str(uni_object.x))
             
             locationItem = QtGui.QTreeWidgetItem(locationRoot)
             locationItem.setText(0, 'y')
-            locationItem.setText(1, str(uni_object.y))
+            locationItem.setText(1, self.controller.units.dist.str(uni_object.y))
             
             locationItem = QtGui.QTreeWidgetItem(locationRoot)
             locationItem.setText(0, 'z')
-            locationItem.setText(1, str(uni_object.z))
+            locationItem.setText(1, self.controller.units.dist.str(uni_object.z))
             
             speedRoot = QtGui.QTreeWidgetItem(root)
             speedRoot.setText(0, 'Speed')
@@ -186,22 +178,36 @@ class Ui_Main(Ui_MainWindow):
                 forceItem.setText(0, 'stop')
                 forceItem.setText(1, str(force.stop))
                 
-                forceItem = QtGui.QTreeWidgetItem(forceRoot)
-                forceItem.setText(0, 'x')
-                forceItem.setText(1, str(force.x))
+                ( force, angle2d, angle3d ) = self.controller.get_force_angle(uni_object)
                 
                 forceItem = QtGui.QTreeWidgetItem(forceRoot)
-                forceItem.setText(0, 'y')
-                forceItem.setText(1, str(force.y))
+                forceItem.setText(0, 'force')
+                forceItem.setText(1, str(force))
                 
                 forceItem = QtGui.QTreeWidgetItem(forceRoot)
-                forceItem.setText(0, 'z')
-                forceItem.setText(1, str(force.z))
+                forceItem.setText(0, 'angle2d')
+                forceItem.setText(1, str(angle2d))
+                
+                forceItem = QtGui.QTreeWidgetItem(forceRoot)
+                forceItem.setText(0, 'angle3d')
+                forceItem.setText(1, str(angle3d))
             
     def refresh_tree(self):
         
         self.treeWidget.clear()
         self.init_tree()
+        
+        self.edit_uni_object = None
+        self.edit_force = None
+        
+        self.statusbar.showMessage('')
+        
+        if self.controller.copy_universe is None:
+            self.label_2.setText('Not set')
+        else:
+            self.label_2.setText('Is set')
+            
+        self.native.repaint()
         
     def treeMenu(self):
         
@@ -309,10 +315,12 @@ class Ui_Main(Ui_MainWindow):
         
     def preferences(self):
         new_object = QtGui.QDialog()
-        new_object.uinh = Ui_MainPreferences(self.controller)
+        new_object.uinh = Ui_MainPreferences(self.helper)
         new_object.uinh.startMain(new_object)
         new_object.setAttribute(QtCore.Qt.WA_DeleteOnClose)
         new_object.exec_()
+        
+        self.refresh_tree()
         
     def about(self):
         new_object = QtGui.QDialog()
@@ -323,8 +331,8 @@ class Ui_Main(Ui_MainWindow):
     
     def newSimulation(self):
         
-        self.controller = controller()
-        
+        self.controller.new_controller()
+        self.helper.set_background_color(self.default_background_color)
         self.refresh_tree()
     
     def openFile(self):
@@ -334,6 +342,11 @@ class Ui_Main(Ui_MainWindow):
         self.controller.set_filePath(fileName)
         
         (result, message) = self.controller.load()
+        
+        if 'background_color' in self.controller.pref_dict:
+            print 'background_color'
+            self.helper.load_background_color(self.controller.pref_dict['background_color'])
+        
         self.refresh_tree()
         self.statusbar.showMessage(message+' file: '+self.controller.filePath)
         
@@ -346,113 +359,24 @@ class Ui_Main(Ui_MainWindow):
         
         self.controller.set_filePath(fileName)
         
+        self.controller.pref_dict['background_color'] = self.helper.save_background_color()
+        
         (result, message) = self.controller.save()
         self.refresh_tree()
         self.statusbar.showMessage(message+' file: '+self.controller.filePath)
     
     def stop(self):
         
-        print 'stop'
-        
-        self.run = False
+        print 'timer stop'
+        self.timer.stop()
+        self.refresh_tree()
     
     def start(self):
         
-        print 'start'
-        #self.work_thread.start()
-        
-        
-            
-    def draw_qt(self):
-        
         print 'timer start'
-        
-        self.helper
-        
-        self.timer.start(50)
-        
-    def stop_draw_qt(self):
-        
-        print 'timer stop'
-        self.timer.stop()
-
-        
+        self.timer.start(10)
 
 
 
-class Helper:
-    def __init__(self):
-        gradient = QtGui.QLinearGradient(QtCore.QPointF(50, -20), QtCore.QPointF(80, 20))
-        gradient.setColorAt(0.0, QtCore.Qt.white)
-        gradient.setColorAt(1.0, QtGui.QColor(0xa6, 0xce, 0x39))
-
-        self.background = QtGui.QBrush(QtGui.QColor(64, 32, 64))
-        self.circleBrush = QtGui.QBrush(gradient)
-        self.circlePen = QtGui.QPen(QtCore.Qt.black)
-        self.circlePen.setWidth(1)
-        self.textPen = QtGui.QPen(QtCore.Qt.white)
-        self.textFont = QtGui.QFont()
-        self.textFont.setPixelSize(20)
-        
-        self.width = 200
-        self.height = 200
-
-    def paint(self, painter, event, elapsed):
-        painter.fillRect(event.rect(), self.background)
-        
-        painter.translate(painter.device().width()/2, painter.device().height()/2)
-
-        painter.save()
-        painter.setBrush(self.circleBrush)
-        painter.setPen(self.circlePen)
-        #painter.rotate(elapsed * 0.030)
-        
-        print elapsed
-        
-        r = elapsed/1000.0
-        n = 30
-        
-        #print r
-        
-        
-        for i in range(n):
-            painter.rotate(30)
-            radius = 0 + 120.0*((i+r)/n)
-            circleRadius = 1 + ((i+r)/n)*20
-            painter.drawEllipse(QtCore.QRectF(radius, -circleRadius,
-                                       circleRadius*2, circleRadius*2))
-
-        painter.restore()
-        
-        painter.setPen(QtGui.QColor(255, 0, 0))
-        painter.drawEllipse(QtCore.QRectF(0, 0, 200, 200))
-        painter.drawEllipse(-100, -100, 200, 200)
-        
-        
-        painter.setPen(self.textPen)
-        painter.setFont(self.textFont)
-        painter.drawText(QtCore.QRect(-50, -50, 100, 100), QtCore.Qt.AlignCenter, "mikko")
-
-
-class Widget(QtGui.QWidget):
-    def __init__(self, helper, parent = None):
-        QtGui.QWidget.__init__(self)
-        
-        self.helper = helper
-        self.elapsed = 0
-        #self.setFixedSize(200, 200)
-
-    def animate(self):
-        #print 'animate'
-        self.elapsed = (self.elapsed + self.sender().interval()) % 1000
-        self.repaint()
-
-    def paintEvent(self, event):
-        print 'paintevent'
-        painter = QtGui.QPainter()
-        painter.begin(self)
-        painter.setRenderHint(QtGui.QPainter.Antialiasing)
-        self.helper.paint(painter, event, self.elapsed)
-        painter.end()
 
 

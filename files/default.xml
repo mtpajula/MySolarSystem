@@ -1,6 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <simulation>
-	<universe id="001" step="0">
+	<preferences>
+		<units dist_unit="au" mass_unit="10-21kg" time_unit="d"/>
+		<background_color b="0" g="0" r="0"/>
+	</preferences>
+	<universe calc_time="0" id="001" step="0">
 		<maths time="3600"/>
 		<object name="aurinko">
 			<mass>
@@ -22,7 +26,7 @@
 			<radius>
 				2440000.0
 			</radius>
-			<coordinates x="-58000000000.0" y="0" z="0"/>
+			<coordinates x="-58000000000.0" y="0.0" z="0.0"/>
 			<speed_vector x="2.93109530787e-12" y="-47870.0" z="0.0"/>
 			<style type="3">
 				<color b="105" g="105" r="105"/>
@@ -35,7 +39,7 @@
 			<radius>
 				6052000.0
 			</radius>
-			<coordinates x="0" y="1.08e+11" z="0"/>
+			<coordinates x="0.0" y="1.08e+11" z="0.0"/>
 			<speed_vector x="-35020.0" y="4.28857145109e-12" z="0.0"/>
 			<style type="3">
 				<color b="165" g="32" r="218"/>
@@ -48,7 +52,7 @@
 			<radius>
 				6371000.0
 			</radius>
-			<coordinates x="1.496e+11" y="0" z="0"/>
+			<coordinates x="1.496e+11" y="0.0" z="0.0"/>
 			<speed_vector x="1.82343886084e-12" y="29780.0" z="0.0"/>
 			<style type="3">
 				<color b="178" g="170" r="32"/>
@@ -61,7 +65,7 @@
 			<radius>
 				1737000.0
 			</radius>
-			<coordinates x="1.492e+11" y="0" z="0"/>
+			<coordinates x="1.492e+11" y="0.0" z="0.0"/>
 			<speed_vector x="1.76220854315e-12" y="28780.0" z="0.0"/>
 			<style type="1">
 				<color b="190" g="190" r="190"/>
@@ -69,19 +73,19 @@
 		</object>
 		<object name="satellite">
 			<mass>
-				5000
+				5000.0
 			</mass>
 			<radius>
 				1737000.0
 			</radius>
-			<coordinates x="1.495e+11" y="0" z="0"/>
+			<coordinates x="1.495e+11" y="0.0" z="0.0"/>
 			<speed_vector x="-5183.39810336" y="29396.5114274" z="0.0"/>
 			<style type="1">
 				<color b="105" g="225" r="65"/>
 			</style>
 		</object>
 	</universe>
-	<universe id="002" step="0">
+	<universe calc_time="0" id="002" step="0">
 		<maths time="3600"/>
 		<object name="aurinko">
 			<mass>
@@ -103,7 +107,7 @@
 			<radius>
 				2440000.0
 			</radius>
-			<coordinates x="-58000000000.0" y="0" z="0"/>
+			<coordinates x="-58000000000.0" y="0.0" z="0.0"/>
 			<speed_vector x="2.93109530787e-12" y="-47870.0" z="0.0"/>
 			<style type="3">
 				<color b="105" g="105" r="105"/>
@@ -116,7 +120,7 @@
 			<radius>
 				6052000.0
 			</radius>
-			<coordinates x="0" y="1.08e+11" z="0"/>
+			<coordinates x="0.0" y="1.08e+11" z="0.0"/>
 			<speed_vector x="-35020.0" y="4.28857145109e-12" z="0.0"/>
 			<style type="3">
 				<color b="165" g="32" r="218"/>
@@ -129,7 +133,7 @@
 			<radius>
 				6371000.0
 			</radius>
-			<coordinates x="1.496e+11" y="0" z="0"/>
+			<coordinates x="1.496e+11" y="0.0" z="0.0"/>
 			<speed_vector x="1.82343886084e-12" y="29780.0" z="0.0"/>
 			<style type="3">
 				<color b="178" g="170" r="32"/>
@@ -142,7 +146,7 @@
 			<radius>
 				1737000.0
 			</radius>
-			<coordinates x="1.492e+11" y="0" z="0"/>
+			<coordinates x="1.492e+11" y="0.0" z="0.0"/>
 			<speed_vector x="1.76220854315e-12" y="28780.0" z="0.0"/>
 			<style type="1">
 				<color b="190" g="190" r="190"/>
@@ -150,12 +154,12 @@
 		</object>
 		<object name="satellite">
 			<mass>
-				5000
+				5000.0
 			</mass>
 			<radius>
 				1737000.0
 			</radius>
-			<coordinates x="1.495e+11" y="0" z="0"/>
+			<coordinates x="1.495e+11" y="0.0" z="0.0"/>
 			<speed_vector x="-5183.39810336" y="29396.5114274" z="0.0"/>
 			<style type="1">
 				<color b="105" g="225" r="65"/>

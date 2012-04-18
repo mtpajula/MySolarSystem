@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file 'mainwindow.ui'
 #
-# Created: Mon Apr 16 16:34:04 2012
+# Created: Wed Apr 18 17:54:36 2012
 #      by: pyside-uic 0.2.11 running on PySide 1.0.6
 #
 # WARNING! All changes made in this file will be lost!
@@ -12,28 +12,20 @@ from PySide import QtCore, QtGui
 class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
         MainWindow.setObjectName("MainWindow")
-        MainWindow.resize(693, 576)
+        MainWindow.resize(700, 500)
         self.centralwidget = QtGui.QWidget(MainWindow)
         self.centralwidget.setObjectName("centralwidget")
         self.verticalLayout = QtGui.QVBoxLayout(self.centralwidget)
         self.verticalLayout.setObjectName("verticalLayout")
         self.horizontalLayout = QtGui.QHBoxLayout()
         self.horizontalLayout.setObjectName("horizontalLayout")
-        #self.graphicsView = QtGui.QGraphicsView(self.centralwidget)
-        sizePolicy = QtGui.QSizePolicy(QtGui.QSizePolicy.Expanding, QtGui.QSizePolicy.Expanding)
-        sizePolicy.setHorizontalStretch(0)
-        sizePolicy.setVerticalStretch(0)
-        #sizePolicy.setHeightForWidth(self.graphicsView.sizePolicy().hasHeightForWidth())
-        #self.graphicsView.setSizePolicy(sizePolicy)
-        #self.graphicsView.setObjectName("graphicsView")
-        #self.horizontalLayout.addWidget(self.graphicsView)
         self.verticalLayout.addLayout(self.horizontalLayout)
         MainWindow.setCentralWidget(self.centralwidget)
         self.statusbar = QtGui.QStatusBar(MainWindow)
         self.statusbar.setObjectName("statusbar")
         MainWindow.setStatusBar(self.statusbar)
         self.menubar = QtGui.QMenuBar(MainWindow)
-        self.menubar.setGeometry(QtCore.QRect(0, 0, 693, 25))
+        self.menubar.setGeometry(QtCore.QRect(0, 0, 700, 25))
         self.menubar.setObjectName("menubar")
         self.menuFile = QtGui.QMenu(self.menubar)
         self.menuFile.setObjectName("menuFile")
@@ -75,6 +67,7 @@ class Ui_MainWindow(object):
         self.label.setObjectName("label")
         self.horizontalLayout_3.addWidget(self.label)
         self.label_2 = QtGui.QLabel(self.dockWidgetContents_5)
+        self.label_2.setText("")
         self.label_2.setObjectName("label_2")
         self.horizontalLayout_3.addWidget(self.label_2)
         spacerItem = QtGui.QSpacerItem(40, 20, QtGui.QSizePolicy.Expanding, QtGui.QSizePolicy.Minimum)
@@ -83,6 +76,10 @@ class Ui_MainWindow(object):
         self.pushButton_4.setObjectName("pushButton_4")
         self.horizontalLayout_3.addWidget(self.pushButton_4)
         self.pushButton_3 = QtGui.QPushButton(self.dockWidgetContents_5)
+        self.pushButton_3.setCheckable(False)
+        self.pushButton_3.setChecked(False)
+        self.pushButton_3.setDefault(False)
+        self.pushButton_3.setFlat(False)
         self.pushButton_3.setObjectName("pushButton_3")
         self.horizontalLayout_3.addWidget(self.pushButton_3)
         self.pushButton_2 = QtGui.QPushButton(self.dockWidgetContents_5)
@@ -117,6 +114,10 @@ class Ui_MainWindow(object):
         self.actionObject_tree.setObjectName("actionObject_tree")
         self.actionNew_Force_Vector = QtGui.QAction(MainWindow)
         self.actionNew_Force_Vector.setObjectName("actionNew_Force_Vector")
+        self.actionPlayer = QtGui.QAction(MainWindow)
+        self.actionPlayer.setCheckable(True)
+        self.actionPlayer.setChecked(True)
+        self.actionPlayer.setObjectName("actionPlayer")
         self.menuFile.addAction(self.actionNew_Simulation)
         self.menuFile.addAction(self.actionOpen)
         self.menuFile.addSeparator()
@@ -128,6 +129,7 @@ class Ui_MainWindow(object):
         self.menuSettings.addAction(self.actionPrefenrences)
         self.menuAbout_MySolarSystem.addAction(self.actionAbout_MySolarSystem)
         self.menuShow.addAction(self.actionObject_tree)
+        self.menuShow.addAction(self.actionPlayer)
         self.menuView.addAction(self.actionFull_screen)
         self.menuView.addAction(self.actionLeave_Full_Screen)
         self.menuView.addSeparator()
@@ -143,6 +145,7 @@ class Ui_MainWindow(object):
         QtCore.QObject.connect(self.actionFull_screen, QtCore.SIGNAL("activated()"), MainWindow.showFullScreen)
         QtCore.QObject.connect(self.actionLeave_Full_Screen, QtCore.SIGNAL("activated()"), MainWindow.showNormal)
         QtCore.QObject.connect(self.actionObject_tree, QtCore.SIGNAL("toggled(bool)"), self.dockWidget_2.setVisible)
+        QtCore.QObject.connect(self.actionPlayer, QtCore.SIGNAL("toggled(bool)"), self.dockWidget_3.setVisible)
         QtCore.QMetaObject.connectSlotsByName(MainWindow)
 
     def retranslateUi(self, MainWindow):
@@ -155,8 +158,7 @@ class Ui_MainWindow(object):
         self.menuShow.setTitle(QtGui.QApplication.translate("MainWindow", "Show", None, QtGui.QApplication.UnicodeUTF8))
         self.treeWidget.headerItem().setText(0, QtGui.QApplication.translate("MainWindow", "Objects", None, QtGui.QApplication.UnicodeUTF8))
         self.treeWidget.headerItem().setText(1, QtGui.QApplication.translate("MainWindow", "Values", None, QtGui.QApplication.UnicodeUTF8))
-        self.label.setText(QtGui.QApplication.translate("MainWindow", "Time unit:", None, QtGui.QApplication.UnicodeUTF8))
-        self.label_2.setText(QtGui.QApplication.translate("MainWindow", "23240245", None, QtGui.QApplication.UnicodeUTF8))
+        self.label.setText(QtGui.QApplication.translate("MainWindow", "Startpoint:", None, QtGui.QApplication.UnicodeUTF8))
         self.pushButton_4.setText(QtGui.QApplication.translate("MainWindow", "Set Startpoint", None, QtGui.QApplication.UnicodeUTF8))
         self.pushButton_3.setText(QtGui.QApplication.translate("MainWindow", "Reverse", None, QtGui.QApplication.UnicodeUTF8))
         self.pushButton_2.setText(QtGui.QApplication.translate("MainWindow", "Play", None, QtGui.QApplication.UnicodeUTF8))
@@ -172,4 +174,5 @@ class Ui_MainWindow(object):
         self.actionLeave_Full_Screen.setText(QtGui.QApplication.translate("MainWindow", "Leave Full Screen", None, QtGui.QApplication.UnicodeUTF8))
         self.actionObject_tree.setText(QtGui.QApplication.translate("MainWindow", "Object tree", None, QtGui.QApplication.UnicodeUTF8))
         self.actionNew_Force_Vector.setText(QtGui.QApplication.translate("MainWindow", "New Force Vector", None, QtGui.QApplication.UnicodeUTF8))
+        self.actionPlayer.setText(QtGui.QApplication.translate("MainWindow", "Player", None, QtGui.QApplication.UnicodeUTF8))
 

@@ -3,6 +3,7 @@ from universe.uni_object import Uni_Object
 from universe.force_vector import Force_Vector
 from uni_file.dom_save import Dom_Save
 from uni_file.dom_load import Dom_Load
+from units import Units
 import copy
 import os
 
@@ -14,7 +15,7 @@ class controller(object):
     def __init__(self):
         '''
         init new universe
-        '''
+        
         self.universe = Universe()
         
         # Holds the startpoint universe
@@ -25,8 +26,29 @@ class controller(object):
         self.folder = "files/"
         self.filePath = None
         
-        # AU in meters for UI:s
-        self.au = 149598000000
+        self.units = Units()
+        
+        self.pref_dict = {}
+        '''
+        
+        self.new_controller()
+        
+    def new_controller(self):
+        
+        self.universe = Universe()
+        
+        # Holds the startpoint universe
+        self.copy_universe = None
+        
+        # Folder where to save files and Default file name
+        self.file_name = "test.xml"
+        self.folder = "files/"
+        self.filePath = None
+        
+        self.units = Units()
+        
+        self.pref_dict = {}
+        
     
     def create_object(self, name, mass, radius):
         '''
@@ -225,6 +247,9 @@ class controller(object):
         
         self.copy_universe = copy.deepcopy(self.universe)
         
+        self.copy_universe.step = 0
+        self.copy_universe.calc_time = 0
+        
         return True, "Startpoint set"
         
     def reverse_startpoint(self):
@@ -249,16 +274,19 @@ class controller(object):
         '''
         Saves current simulation in file
         '''
-        s = Dom_Save()
-        s.add_universe(self.universe)
         
-        if self.copy_universe is not None:
+        self.pref_dict['units'] = self.units.save_units()
+        s = Dom_Save(self.pref_dict)
+        
+        s.add_universe(self.universe)
+        if  self.copy_universe is not None:
             s.add_universe(self.copy_universe)
         
         if self.filePath is None:
             return s.save_simulation(self.folder + self.file_name)
             
         return s.save_simulation(self.filePath)
+        
         
     def load(self):
         '''
@@ -271,7 +299,11 @@ class controller(object):
         else:
             filePath = self.filePath
         
-        uni_list = l.load_simulation(filePath)
+        (uni_list, self.pref_dict) = l.load_simulation(filePath)
+        print self.pref_dict
+        
+        if 'units' in self.pref_dict:
+            self.units.load_units(self.pref_dict['units'])
         
         if uni_list is not None:
             
@@ -298,3 +330,8 @@ class controller(object):
             
         return files
         
+    def not_empty(self):
+        
+        if len(self.universe.object_list) > 0:
+            return True
+        return False

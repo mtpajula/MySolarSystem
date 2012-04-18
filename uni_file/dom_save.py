@@ -6,9 +6,10 @@ class Dom_Save(object):
     Saves given universies in file
     '''
     
-    def __init__(self):
+    def __init__(self, pref_dict):
         
         self.uni_list = []
+        self.pref_dict = pref_dict
 
     def add_universe(self, universe):
         '''
@@ -48,11 +49,29 @@ class Dom_Save(object):
         root = doc.createElement("simulation")
         doc.appendChild(root)
         
+        # Create preferences
+        root.appendChild(self.generate_preferences(doc))
+        
         # Loop given universes
         for i, universe in enumerate(self.uni_list):
             root.appendChild(self.generate_universe(doc, universe, i))
         
         return doc
+        
+    def generate_preferences(self, doc):
+        
+        pre = doc.createElement("preferences")
+        
+        for name, dictionary in self.pref_dict.items():
+            
+            element = doc.createElement(name)
+            
+            for attrname, item in dictionary.items():
+                element.setAttribute(attrname, str(item))
+                
+            pre.appendChild(element)
+            
+        return pre
         
     def generate_universe(self, doc, universe, i):
         '''
@@ -62,6 +81,7 @@ class Dom_Save(object):
         # universe
         uni = doc.createElement("universe")
         uni.setAttribute("step", str(universe.step))
+        uni.setAttribute("calc_time", str(universe.calc_time))
         id_str = "00" + str(i+1)
         uni.setAttribute("id", str(id_str))
 

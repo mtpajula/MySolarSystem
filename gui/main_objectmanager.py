@@ -65,16 +65,6 @@ class Ui_MainObjectManager(Ui_ObjectManager):
         
         obj_type = self.controller.validate_input('int',self.lineEdit_10.text(),True)
         
-        print "3: " + self.lineEdit_3.text()
-        print "4: " + self.lineEdit_4.text()
-        print "5: " + self.lineEdit_5.text()
-        print "6: " + self.lineEdit_6.text()
-        print "7: " + self.lineEdit_7.text()
-        print "8: " + self.lineEdit_8.text()
-        print "9: " + self.lineEdit_9.text()
-        print "10: " + self.lineEdit_10.text()
-        
-        
         if self.uni_object is not None:
             new_obj = self.uni_object
             
@@ -98,9 +88,6 @@ class Ui_MainObjectManager(Ui_ObjectManager):
             self.color = col
             self.frame.setStyleSheet("QWidget { background-color: %s }"
                 % col.name())
-            print col.red()
-            print col.green()
-            print col.blue()
         
         
         

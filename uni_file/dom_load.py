@@ -12,6 +12,7 @@ class Dom_Load(object):
     def __init__(self):
         
         self.uni_list = []
+        self.pref_dict = {}
 
     def load_simulation(self, file_name):
         '''
@@ -25,16 +26,42 @@ class Dom_Load(object):
             doc = parse(file_name)
             unis = doc.getElementsByTagName("universe")
             
+            if len(doc.getElementsByTagName("preferences")) > 0:
+                pre = doc.getElementsByTagName("preferences")[0]
+                self.get_preferences(pre)
+            
             # Get universe-objects
             for uni in unis:
                 self.uni_list.append(self.get_universe(uni))
             
-            return self.uni_list
+            return (self.uni_list, self.pref_dict)
             
         except IOError:
             return None 
         
+    def get_preferences(self, pre):
+        '''
+        read preferences dictionary
+        '''
+        
+        for child in pre.childNodes: 
+            
+            if child.nodeType == 1:
+                
+                child_dict = {}
+                
+                if child.hasAttributes:
+                    print 'has attr'
 
+                    for i in range(child.attributes.length):
+                        a = child.attributes.item(i)
+                        print "%s = %s" % (a.name, a.value)
+                        
+                        child_dict[a.name] = a.value
+                        
+                self.pref_dict[child.nodeName] = child_dict
+
+        
     def get_universe(self, uni):
         '''
         Loads universe-object from DOM
@@ -43,11 +70,17 @@ class Dom_Load(object):
         
         # Step and time
         step = uni.getAttribute("step")
+        calc_time = uni.getAttribute("calc_time")
         maths_time = uni.getElementsByTagName("maths")[0].getAttribute("time")
         
+        if calc_time == '':
+            calc_time = '0'
+        
         step = int(step)
+        calc_time = int(calc_time)
         maths_time = int(maths_time)
         universe.step = step
+        universe.calc_time = calc_time
         universe.maths.time = maths_time
         
         objects = uni.getElementsByTagName("object")
