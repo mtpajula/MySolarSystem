@@ -25,9 +25,9 @@ class Ui_MainPreferences(Ui_Preferences):
         for unit, divider in self.controller.units.mass_units.items():
             self.comboBox_3.addItem(unit)
             
-        self.comboBox.setCurrentIndex(self.comboBox.findText(self.controller.units.time_unit))
-        self.comboBox_2.setCurrentIndex(self.comboBox_2.findText(self.controller.units.dist_unit))
-        self.comboBox_3.setCurrentIndex(self.comboBox_3.findText(self.controller.units.mass_unit))
+        self.comboBox.setCurrentIndex(self.comboBox.findText(self.controller.units.time.unit))
+        self.comboBox_2.setCurrentIndex(self.comboBox_2.findText(self.controller.units.dist.unit))
+        self.comboBox_3.setCurrentIndex(self.comboBox_3.findText(self.controller.units.mass.unit))
         
         QtCore.QObject.connect(self.pushButton, QtCore.SIGNAL("clicked()"), self.colorDialog)
         QtCore.QObject.connect(self.buttonBox, QtCore.SIGNAL("accepted()"), self.set_preferences)
