@@ -9,7 +9,7 @@ class Helper:
         self.height = 200
         
         self.controller = controller
-        print 'init helper'
+        
         self.largest_mass_object = None
         
         self.scale_factor = 1
@@ -18,10 +18,6 @@ class Helper:
         
         if self.controller.not_empty():
             self.get_scale_factor()
-        
-        
-        #self.background_color = background_color
-        #self.background = QtGui.QBrush(self.background_color)
         
         self.set_background_color(background_color)
         
@@ -114,7 +110,6 @@ class Helper:
             scale_factor = screen_min / max_dist
             
             self.scale_factor = scale_factor
-            
         
     def scale(self, uni_object):
         '''

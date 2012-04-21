@@ -1,6 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<simulation>
-	<universe id="001" step="0">
-		<maths time="3600"/>
-	</universe>
-</simulation>

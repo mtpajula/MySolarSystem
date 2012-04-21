@@ -27,23 +27,14 @@ class Ui_Main(Ui_MainWindow):
         self.helper = Helper(self.controller, self.default_background_color)
         self.native = Widget(self.helper, self)
         
+        '''
         self.controller.file_name = "default.xml"
         self.controller.load()
-        '''
-        self.controller.units.set_time_unit('d')
-        self.controller.units.set_dist_unit('au')
-        self.controller.units.set_mass_unit('mt')
-        '''
+        
         if 'background_color' in self.controller.pref_dict:
-            print 'background_color'
             self.helper.load_background_color(self.controller.pref_dict['background_color'])
+        '''
         
-        #sizePolicy = QtGui.QSizePolicy(QtGui.QSizePolicy.Expanding, QtGui.QSizePolicy.Expanding)
-        #sizePolicy.setHorizontalStretch(0)
-        #sizePolicy.setVerticalStretch(0)
-        #sizePolicy.setHeightForWidth(self.native.sizePolicy().hasHeightForWidth())
-        
-        #self.native.setSizePolicy(sizePolicy)
         self.horizontalLayout.addWidget(self.native)
         
         self.timer = QtCore.QTimer()
@@ -360,18 +351,14 @@ class Ui_Main(Ui_MainWindow):
         (result, message) = self.controller.load()
         
         if 'background_color' in self.controller.pref_dict:
-            print 'background_color'
             self.helper.load_background_color(self.controller.pref_dict['background_color'])
         
         self.refresh_tree()
         self.statusbar.showMessage(message+' file: '+self.controller.filePath)
         
-        print self.controller.filePath
-        
     def saveFile(self):
         
         fileName = QtGui.QFileDialog.getSaveFileName(self.centralwidget,"Save universe","files/","*.xml")[0]
-        print fileName
         
         self.controller.set_filePath(fileName)
         
@@ -383,14 +370,14 @@ class Ui_Main(Ui_MainWindow):
     
     def stop(self):
         
-        print 'timer stop'
         self.timer.stop()
         self.refresh_tree()
+        self.statusbar.showMessage('Simulation stopped')
     
     def start(self):
         
-        print 'timer start'
         self.timer.start(self.controller.timer_time)
+        self.statusbar.showMessage('Running simulation')
 
 
 

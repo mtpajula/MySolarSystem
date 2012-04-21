@@ -84,10 +84,28 @@
 			<style type="1">
 				<color b="105" g="225" r="65"/>
 			</style>
+			<custom_forces>
+				<custom_force>
+					<vector x="-196.961550602" y="-34.7296355334" z="0.0"/>
+					<time start="0.0" stop="691200.0"/>
+				</custom_force>
+				<custom_force>
+					<vector x="200.0" y="0.0" z="0.0"/>
+					<time start="5184000.0" stop="6048000.0"/>
+				</custom_force>
+				<custom_force>
+					<vector x="-105.983852847" y="169.609619231" z="0.0"/>
+					<time start="6696000.0" stop="6912000.0"/>
+				</custom_force>
+				<custom_force>
+					<vector x="1.22460635382e-14" y="200.0" z="0.0"/>
+					<time start="7344000.0" stop="7430400.0"/>
+				</custom_force>
+			</custom_forces>
 		</object>
 	</universe>
 	<universe calc_time="0" id="002" step="0">
-		<maths time="3600"/>
+		<maths time="1800"/>
 		<object name="aurinko">
 			<mass>
 				1.9891e+30
@@ -165,6 +183,24 @@
 			<style type="1">
 				<color b="105" g="225" r="65"/>
 			</style>
+			<custom_forces>
+				<custom_force>
+					<vector x="-196.961550602" y="-34.7296355334" z="0.0"/>
+					<time start="0.0" stop="691200.0"/>
+				</custom_force>
+				<custom_force>
+					<vector x="200.0" y="0.0" z="0.0"/>
+					<time start="5184000.0" stop="6048000.0"/>
+				</custom_force>
+				<custom_force>
+					<vector x="-105.983852847" y="169.609619231" z="0.0"/>
+					<time start="6696000.0" stop="6912000.0"/>
+				</custom_force>
+				<custom_force>
+					<vector x="1.22460635382e-14" y="200.0" z="0.0"/>
+					<time start="7344000.0" stop="7430400.0"/>
+				</custom_force>
+			</custom_forces>
 		</object>
 	</universe>
 </simulation>

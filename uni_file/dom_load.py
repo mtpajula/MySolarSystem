@@ -19,8 +19,6 @@ class Dom_Load(object):
         Loads simulation from given file
         '''
         
-        print "load: " + file_name
-        
         try:
             # Does xml parse to DOM
             doc = parse(file_name)
@@ -159,11 +157,11 @@ class Dom_Load(object):
         
         # None values
         if start != "None":
-            start = int(start)
+            start = int(float(start))
         else:
             start = None
         if stop != "None":
-            stop = int(stop)
+            stop = int(float(stop))
         else:
             stop = None
         

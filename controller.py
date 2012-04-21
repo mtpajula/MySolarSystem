@@ -294,7 +294,6 @@ class controller(object):
             filePath = self.filePath
         
         (uni_list, self.pref_dict) = l.load_simulation(filePath)
-        print self.pref_dict
         
         if 'units' in self.pref_dict:
             self.units.load_units(self.pref_dict['units'])
