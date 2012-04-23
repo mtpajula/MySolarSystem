@@ -119,6 +119,8 @@ class Maths(object):
         m1 = uni_obj1.mass
         m2 = uni_obj2.mass
         
+        print "1: " + uni_obj1.name
+        print "2: " + uni_obj2.name
         print " x1: " + str(x1) + " y1: " + str(y1) + " z1: " + str(z1)
         print " x2: " + str(x2) + " y2: " + str(y2) + " z2: " + str(z2)
         
@@ -130,7 +132,7 @@ class Maths(object):
         
         uni_obj1.mass = m1 + m2
         
-        print uni_obj1.mass
+        print "New object 1 mass: " + str(uni_obj1.mass)
         
         uni_obj1.set_speed(x, y, z)
         
@@ -167,6 +169,8 @@ class Maths(object):
         z = scale * force.z
         
         self.add_vector(uni_object, x, y, z)
+        
+        uni_object.add_force(force.x, force.y, force.z)
         
     def move(self, uni_object, calc_time):
         '''

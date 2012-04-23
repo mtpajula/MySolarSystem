@@ -16,6 +16,9 @@ class Ui_MainObjectManager(Ui_ObjectManager):
         #self.Dialog = None
         
     def startMain(self, Dialog):
+        '''
+        Init object manager -dialog with edit object or empty
+        '''
         
         self.setupUi(Dialog)
         #self.Dialog = Dialog
@@ -54,6 +57,9 @@ class Ui_MainObjectManager(Ui_ObjectManager):
             % self.color.name())
 
     def create_object(self):
+        '''
+        Save changes or create new based on gui values
+        '''
         
         name = self.controller.validate_input('string',self.lineEdit.text())
         mass = self.controller.validate_input('float',self.lineEdit_2.text(),True)
@@ -95,6 +101,9 @@ class Ui_MainObjectManager(Ui_ObjectManager):
         self.controller.set_object_angle_speed(new_obj,speed,angle2d,angle3d)
             
     def colorDialog(self):
+        '''
+        open color dialog and set color
+        '''
         
         col = QtGui.QColorDialog.getColor(self.color)
         

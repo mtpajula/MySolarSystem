@@ -59,6 +59,9 @@ class Dom_Save(object):
         return doc
         
     def generate_preferences(self, doc):
+        '''
+        Returns preferences double dictionary in DOM
+        '''
         
         pre = doc.createElement("preferences")
         

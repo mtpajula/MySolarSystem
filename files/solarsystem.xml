@@ -4,6 +4,8 @@
 		<units dist="au" force="N" mass="10-21kg" speed="kms" time="d"/>
 		<paint steps_between_paint="20" timer_time="10"/>
 		<background_color b="0" g="0" r="0"/>
+		<helper draw_lines="False" line_lenght="10"/>
+		<line_color b="111" g="111" r="111"/>
 	</preferences>
 	<universe calc_time="0" id="001" step="0">
 		<maths time="1800"/>

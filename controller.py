@@ -17,6 +17,9 @@ class controller(object):
         self.new_controller()
         
     def new_controller(self):
+        '''
+        Inits controller. Usage: New Simulation
+        '''
         
         self.universe = Universe()
         
@@ -114,6 +117,10 @@ class controller(object):
         return text
         
     def is_int(self, s):
+        '''
+        Tests that given parameter is integer
+        @return: Bool (True, if param is integer)
+        '''
         try: 
             int(s)
             return True
@@ -121,6 +128,10 @@ class controller(object):
             return False
             
     def is_float(self, s):
+        '''
+        Tests that given parameter is float
+        @return: Bool (True, if param is float)
+        '''
         try:
             float(s)
             return True
@@ -328,7 +339,10 @@ class controller(object):
         return files
         
     def not_empty(self):
-        
+        '''
+        Finds out if universe is empty and has no objects
+        @return: Bool (true, if universe is empty)
+        '''
         if len(self.universe.object_list) > 0:
             return True
         return False

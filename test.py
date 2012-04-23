@@ -1,10 +1,11 @@
 import unittest
-
+from PySide import QtCore, QtGui
 from controller import controller
 from universe.maths import Maths
 from cli.cli_pygame import Cli_Pygame
 from universe.uni_object import Uni_Object
 from universe.uni_object import Uni_Object
+from gui.paint import Helper
 import math
 
 class Test(unittest.TestCase):
@@ -92,6 +93,17 @@ class Test(unittest.TestCase):
         
         self.assertEqual(500 ,round(obj.x),  "Wrong x location")
         
+    def test_line_direction(self):
+        '''
+        Test: Draw line (lenght x) to same direction as given line
+        '''
+        background_color = QtGui.QColor(64, 32, 64)
+        helper = Helper(self.controller, background_color)
+        
+        (x,y) = helper.line_direction(20,5)
+        
+        lenght = math.sqrt(x**2 + y**2)
+        self.assertEqual(10 ,round(lenght),  "Wrong lenght")
 
 if __name__ == "__main__":
     unittest.main()

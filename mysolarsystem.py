@@ -2,21 +2,11 @@ import sys
 from controller import controller
 import math
 
+#sys.path.append("/home/leevi/projektit/MySolarSystem") 
+
 def main_gui(controller):
     '''
     Function executes Qt GUI
-    '''
-    '''
-    from PySide import QtCore, QtGui
-    from gui.mainwindow import Ui_MainWindow
-    
-    app = QtGui.QApplication(sys.argv)
-    MainWindow = QtGui.QMainWindow()
-
-    ui = Ui_MainWindow(controller)
-    ui.setupUi(MainWindow)
-    MainWindow.show()
-    sys.exit(app.exec_())
     '''
     
     from PySide import QtCore, QtGui

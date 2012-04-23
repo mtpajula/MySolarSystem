@@ -1,6 +1,9 @@
 
 
 class Unit(object):
+    '''
+    Unit actions for set unit type
+    '''
     
     def __init__(self, unit_dict, unit):
         
@@ -8,17 +11,46 @@ class Unit(object):
         self.unit_dict = unit_dict
         
     def to_unit(self, number, given_unit):
+        '''
+        Returns Si value in given unit form
+        
+        @type  number:     int/float
+        @param number:     Value in Si
+        @type  given_unit: String
+        @param given_unit: Given unit
+        @return:           float value in given unit
+        '''
         return number / self.unit_dict[given_unit]
         
     def to_unit_str(self, number, given_unit):
+        '''
+        Returns Si value in given unit form as string with unit name
+        
+        @type  number:     int/float
+        @param number:     Value in Si
+        @type  given_unit: String
+        @param given_unit: Given unit
+        @return:           string value in given unit and with unit name
+        '''
         return str(self.to_unit(number, given_unit)) +' '+ given_unit
         
     def str(self, number):
+        '''
+        Returns Si value in default unit form as string with unit name
+        
+        @type  number:     int/float
+        @param number:     Value in Si
+        @return:           string value in default unit and with unit name
+        '''
         return str(self.num(number)) +' '+ self.unit
         
     def num(self, number):
         '''
-        returns given SI num in  given unit
+        Returns Si value in default unit form
+        
+        @type  number:     int/float
+        @param number:     Value in Si
+        @return:           float value in default unit
         '''
         if number is None:
             return None
@@ -26,21 +58,42 @@ class Unit(object):
         return float(number) / divider
         
     def set_unit(self, given_unit):
-        
+        '''
+        Sets default unit to given unit
+        '''
         for unit, divider in self.unit_dict.items():
             if unit == given_unit:
                 self.unit = given_unit
 
     def si(self, number):
+        '''
+        Returns value in default unit as Si value
         
+        @type  number:     int/float
+        @param number:     Value in default unit
+        @return:           float value in Si
+        '''
         divider = self.unit_dict[self.unit]
         return float(number) * divider
         
     def to_si_from(self, number, given_unit):
+        '''
+        Returns value in given unit as Si value
+        
+        @type  number:     int/float
+        @param number:     Value in given unit
+        @type  given_unit: String
+        @param given_unit: Given unit
+        @return:           float value in Si
+        '''
         return float(number) * self.unit_dict[given_unit]
         
 
 class Units(object):
+    '''
+    Unit holder.
+    Inits time, distance, mass, speed and force -units
+    '''
     
     def __init__(self):
         
@@ -87,7 +140,11 @@ class Units(object):
         self.force = Unit(self.force_units, self.default_force_unit)
         
     def save_units(self):
+        '''
+        Gives default units for saving in file
         
+        @return: Dictionary
+        '''
         units = {}
         units['time'] = self.time.unit
         units['dist'] = self.dist.unit
@@ -98,6 +155,12 @@ class Units(object):
         return units
         
     def load_units(self, units):
+        '''
+        Sets default units from dictionary loaded from file
+        
+        @type  units: Dictionary
+        @param units: Default units
+        '''
         
         if 'time' in units:
             self.time.unit = units['time']

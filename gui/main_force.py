@@ -1,3 +1,4 @@
+#!/usr/bin/env python
 from force import Ui_Force
 from PySide import QtCore, QtGui
 
@@ -16,6 +17,9 @@ class Ui_MainForce(Ui_Force):
         self.force_vector = force_vector
     
     def startMain(self, Dialog):
+        '''
+        init force edit/new dialog
+        '''
         
         self.setupUi(Dialog)
         
@@ -57,6 +61,9 @@ class Ui_MainForce(Ui_Force):
         QtCore.QObject.connect(self.buttonBox, QtCore.SIGNAL("accepted()"), self.create_force)
             
     def create_force(self):
+        '''
+        Set given force values or create new force
+        '''
         
         start = self.lineEdit.text()
         stop = self.lineEdit_2.text()

@@ -3,10 +3,19 @@ import math
 
 
 class Helper:
-    def __init__(self, controller, background_color):
+    '''
+    Draws objects in QPaint
+    Code originally from:
+    U{http://qt.gitorious.org/pyside/pyside-examples/blobs/e853ca94f7ccd122d3498fe562db5d28c4e37edb/examples/opengl/2dpainting.py}
+    '''
+    
+    def __init__(self, controller, background_color, line_color):
         
         self.width = 200
         self.height = 200
+        
+        self.line_lenght = 10
+        self.draw_lines = True
         
         self.controller = controller
         
@@ -20,29 +29,80 @@ class Helper:
             self.get_scale_factor()
         
         self.set_background_color(background_color)
+        self.set_line_color(line_color)
         
         self.textPen = QtGui.QPen(QtCore.Qt.white)
         self.textFont = QtGui.QFont()
         self.textFont.setPixelSize(20)
         
     def set_background_color(self, color):
+        '''
+        Sets background color to given QColor
+        '''
         
         self.background_color = color
         self.background = QtGui.QBrush(self.background_color)
         
-    def save_background_color(self):
+    def set_line_color(self, color):
+        '''
+        Sets force line color to given QColor
+        '''
         
-        dictionary = {}
-        dictionary['r'] = self.background_color.red()
-        dictionary['g'] = self.background_color.green()
-        dictionary['b'] = self.background_color.blue()
+        self.line_color = color
+        self.linePen = QtGui.QPen(color)
         
-        return dictionary
+    def save(self):
+        '''
+        Saves settings to preferences-dictionary
+        '''
         
-    def load_background_color(self, dictionary):
+        bc_dict = {}
+        bc_dict['r'] = self.background_color.red()
+        bc_dict['g'] = self.background_color.green()
+        bc_dict['b'] = self.background_color.blue()
         
-        background_color = QtGui.QColor(int(dictionary['r']), int(dictionary['g']), int(dictionary['b']))
-        self.set_background_color(background_color)
+        lc_dict = {}
+        lc_dict['r'] = self.line_color.red()
+        lc_dict['g'] = self.line_color.green()
+        lc_dict['b'] = self.line_color.blue()
+        
+        other = {}
+        other['line_lenght'] = self.line_lenght
+        other['draw_lines'] = self.draw_lines
+        
+        self.controller.pref_dict['background_color'] = bc_dict
+        self.controller.pref_dict['line_color'] = lc_dict
+        self.controller.pref_dict['helper'] = other
+        
+        
+        #return (bc_dict, lc_dict, other)
+        
+    def load(self):
+        '''
+        Loads settings from preferences-dictionary
+        '''
+        if 'background_color' in self.controller.pref_dict:
+            bc_dict = self.controller.pref_dict['background_color']
+            background_color = QtGui.QColor(int(bc_dict['r']), int(bc_dict['g']), int(bc_dict['b']))
+            self.set_background_color(background_color)
+        
+        if 'line_color' in self.controller.pref_dict:
+            lc_dict = self.controller.pref_dict['line_color']
+            line_color = QtGui.QColor(int(lc_dict['r']), int(lc_dict['g']), int(lc_dict['b']))
+            self.set_line_color(line_color)
+            
+        if 'helper' in self.controller.pref_dict:
+            other = self.controller.pref_dict['helper']
+            line_lenght = other['line_lenght']
+            
+            self.line_lenght = int(line_lenght)
+            
+            draw_lines = other['draw_lines']
+            
+            if draw_lines == 'True':
+                self.draw_lines = True
+            if draw_lines == 'False':
+                self.draw_lines = False
         
     def get_largest_mass_object(self):
         '''
@@ -113,7 +173,7 @@ class Helper:
         
     def scale(self, uni_object):
         '''
-        Scales object locations for pygame window
+        Scales object locations for QPaint
         '''
         
         x =  uni_object.x - self.center_x
@@ -126,8 +186,31 @@ class Helper:
         y = int(  - y )
         
         return ( x, y )
+        
+    def line_direction(self, x, y, size):
+        '''
+        get direction line endpoint
+        '''
+        r = self.controller.universe.maths.get_vector_lenght(x,y,0)
+        
+        if r == 0:
+            return ( None, None )
+        
+        scale = ( self.line_lenght + size ) / r
+        
+        x = scale * x
+        y = scale * y
+        
+        x = int(  + x )
+        y = int(  - y )
+        
+        return ( x, y )
+        
 
     def paint(self, painter, event):
+        '''
+        Paint objects and lines
+        '''
         
         painter.fillRect(event.rect(), self.background)
         painter.translate(painter.device().width()/2, painter.device().height()/2)
@@ -135,19 +218,30 @@ class Helper:
         painter.save()
         
         for uni_object in self.controller.universe.object_list:
-
+            
             ( x, y ) = self.scale(uni_object)
+            point = QtCore.QPoint(x, y)
+            size = uni_object.object_type# * 2
+            
+            if self.draw_lines:
+                (fx, fy) = self.line_direction(uni_object.force_x, uni_object.force_y, size)
+                if fx is not None:
+                    painter.setPen(self.linePen)
+                    f_line = QtCore.QPoint(x+fx, y+fy)
+                    painter.drawLine(point, f_line)
             
             (r,g,b) = uni_object.color
             color = QtGui.QColor(r, g, b)
-            
             painter.setBrush(color)
             painter.setPen(color)
             
-            size = uni_object.object_type * 2
-            fix = size/2
+            if self.draw_lines:
+                (sx, sy) = self.line_direction(uni_object.speed_x, uni_object.speed_y, size)
+                if sx is not None:
+                    s_line = QtCore.QPoint(x+sx, y+sy)
+                    painter.drawLine(point, s_line)
             
-            painter.drawEllipse(x-fix, y-fix, size, size)
+            painter.drawEllipse(point, size, size)
             
         painter.restore()
         
@@ -160,6 +254,12 @@ class Helper:
             
 
 class Widget(QtGui.QWidget):
+    '''
+    QWidged where paint happens
+    Code originally from:
+    U{http://qt.gitorious.org/pyside/pyside-examples/blobs/e853ca94f7ccd122d3498fe562db5d28c4e37edb/examples/opengl/2dpainting.py}
+    '''
+    
     def __init__(self, helper, parent = None):
         QtGui.QWidget.__init__(self)
         
@@ -167,6 +267,9 @@ class Widget(QtGui.QWidget):
         self.animating = False
 
     def animate(self):
+        '''
+        Runs simulation step and repaints
+        '''
         self.animating = True
         
         for i in range(self.helper.controller.steps_between_paint):
@@ -176,6 +279,9 @@ class Widget(QtGui.QWidget):
         self.animating = False
 
     def paintEvent(self, event):
+        '''
+        Event in painter
+        '''
         painter = QtGui.QPainter()
         painter.begin(self)
         painter.setRenderHint(QtGui.QPainter.Antialiasing)

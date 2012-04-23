@@ -91,11 +91,15 @@ class Cli_Main(object):
             
     
     def play(self):
-        
+        '''
+        Simulates one step
+        '''
         self.controller.animate_step()
         
     def pygame(self):
-        
+        '''
+        Starts simulation in pygame window
+        '''
         from cli_pygame import Cli_Pygame
         
         game = Cli_Pygame(self.controller)
@@ -103,12 +107,21 @@ class Cli_Main(object):
         
         
     def edit_uni_object(self):
+        '''
+        For editing object
+        Asks object num and starts function new_uni_object
+        '''
+        
         self.list_uni_objects()
         obj_num = int(raw_input('Object number?\n'))
         
         self.new_uni_object(obj_num)
         
     def new_uni_object(self, obj_num = None):
+        '''
+        Editing or creating object
+        '''
+        
         
         if obj_num is not None:
             new_obj = self.controller.universe.object_list[obj_num]
@@ -167,6 +180,9 @@ class Cli_Main(object):
         print "done"
         
     def list_uni_objects(self):
+        '''
+        Print List of uni-objects and their forces
+        '''
         
         print "step: " + str(self.controller.universe.step)
         print "Name : mass,radius : x,y,z : speed_x,speed_y,speed_z"
@@ -182,6 +198,9 @@ class Cli_Main(object):
                     print "\t"+str(r)+" : "+str(angle2d)+" : "+str(angle3d)+" : "+str(force.start)+" : "+str(force.stop)
             
     def x_play(self):
+        '''
+        Print x locations for given object in years time
+        '''
         self.list_uni_objects()
         obj_num = int(raw_input('Object number?\n'))
         time = float(raw_input('Step size in seconds?\n'))
@@ -192,6 +211,9 @@ class Cli_Main(object):
         print message
                 
     def cli_save(self, command):
+        '''
+        Save universe in default folder as argv name 
+        '''
         file_name = self.get_attribute(command)
         if file_name is not None:
             self.controller.file_name = file_name
@@ -203,6 +225,9 @@ class Cli_Main(object):
         print message
         
     def cli_load(self, command):
+        '''
+        Load universe from default folder named as argv
+        '''
         file_name = self.get_attribute(command)
         if file_name is not None:
             self.controller.file_name = file_name
@@ -214,20 +239,36 @@ class Cli_Main(object):
         print message
         
     def get_attribute(self, command):
+        '''
+        Return first argv from given command
+        '''
+        
         clist = command.split(' ')
         if len(clist) > 1:
             return clist[1]
         return None
         
     def files(self):
+        '''
+        Print files in default folder
+        '''
+        
         files = self.controller.list_files_in_folder()
         print files
         
     def set_copy_universe(self):
+        '''
+        Set startpoint
+        '''
+        
         status, message = self.controller.set_startpoint()
         print message
         
     def reverse_universe(self):
+        '''
+        Reverse universe to startpoint
+        '''
+        
         status, message = self.controller.reverse_startpoint()
         print message
         
