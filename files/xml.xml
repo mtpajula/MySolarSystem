@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<simulation>
+	<preferences>
+		<line_color b="111" g="111" r="111"/>
+		<paint steps_between_paint="1" timer_time="10"/>
+		<units dist="m" force="N" mass="kg" speed="ms" time="s"/>
+		<background_color b="64" g="32" r="64"/>
+		<helper draw_lines="True" line_lenght="10"/>
+	</preferences>
+	<universe calc_time="0" id="001" step="0">
+		<maths time="3600"/>
+		<object name="NONAME">
+			<mass>
+				1.0
+			</mass>
+			<radius>
+				1000.0
+			</radius>
+			<coordinates x="0.0" y="0.0" z="0.0"/>
+			<speed_vector x="0.0" y="0.0" z="0.0"/>
+			<style type="1">
+				<color b="255" g="255" r="255"/>
+			</style>
+			<custom_forces>
+				<custom_force>
+					<vector x="1.0" y="0.0" z="0.0"/>
+					<time start="None" stop="None"/>
+				</custom_force>
+			</custom_forces>
+		</object>
+	</universe>
+</simulation>

@@ -407,31 +407,35 @@ class Ui_Main(Ui_MainWindow):
         Open file-open dialog and load simulation from file
         '''
         
-        fileName = QtGui.QFileDialog.getOpenFileName(self.centralwidget,"Open universe","files/","*.xml")[0]
+        fileName = QtGui.QFileDialog.getOpenFileName(self.centralwidget,"Open universe",
+                                                    self.controller.folder,"*.xml")[0]
         
-        self.controller.set_filePath(fileName)
-        
-        (result, message) = self.controller.load()
-        
-        self.helper.load()
-        
-        self.refresh_tree()
-        self.statusbar.showMessage(message+' file: '+self.controller.filePath)
+        if fileName:
+            self.controller.set_filePath(fileName)
+            
+            (result, message) = self.controller.load()
+            
+            self.helper.load()
+            
+            self.refresh_tree()
+            self.statusbar.showMessage(message+' file: '+self.controller.filePath)
         
     def saveFile(self):
         '''
         Open file-save dialog and save current simulation in file
         '''
         
-        fileName = QtGui.QFileDialog.getSaveFileName(self.centralwidget,"Save universe","files/","*.xml")[0]
+        fileName = QtGui.QFileDialog.getSaveFileName(self.centralwidget,"Save universe",
+                                                    self.controller.folder,"*.xml")[0]
         
-        self.controller.set_filePath(fileName)
-        
-        self.helper.save()
-        
-        (result, message) = self.controller.save()
-        self.refresh_tree()
-        self.statusbar.showMessage(message+' file: '+self.controller.filePath)
+        if fileName:
+            self.controller.set_filePath(fileName)
+            
+            self.helper.save()
+            
+            (result, message) = self.controller.save()
+            self.refresh_tree()
+            self.statusbar.showMessage(message+' file: '+self.controller.filePath)
     
     def stop(self):
         '''
