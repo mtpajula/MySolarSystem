@@ -2,7 +2,6 @@ from xml.dom.minidom import parse
 from universe.universe import Universe
 from universe.uni_object import Uni_Object
 from universe.force_vector import Force_Vector
-from file_error import FileError
 
 class Dom_Load(object):
     '''
