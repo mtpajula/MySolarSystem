@@ -75,10 +75,14 @@ class Maths(object):
         else:
             # Collision
             print "collision"
-
+            
+            return True
+            
+            '''
             self.collision(uni_obj1, uni_obj2)
             # object 2 is deleted
             return uni_obj2
+            '''
 
     def runge_kutta_4(self, t, v, vk):
         '''

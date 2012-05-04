@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<simulation>
+	<preferences>
+		<line_color b="111" g="111" r="111"/>
+		<paint steps_between_paint="1" timer_time="10"/>
+		<units dist="m" force="N" mass="kg" speed="ms" time="d"/>
+		<background_color b="64" g="32" r="64"/>
+		<helper draw_lines="True" line_lenght="10"/>
+	</preferences>
+	<universe calc_time="0" id="001" step="0">
+		<maths time="3600"/>
+		<object name="1">
+			<mass>1000.0</mass>
+			<radius>2.0</radius>
+			<coordinates x="-50.0" y="0.0" z="0.0"/>
+			<speed_vector x="1.22460635382e-21" y="2e-05" z="0.0"/>
+			<style type="5">
+				<color b="255" g="255" r="255"/>
+			</style>
+		</object>
+		<object name="2">
+			<mass>1000.0</mass>
+			<radius>2.0</radius>
+			<coordinates x="50.0" y="0.0" z="0.0"/>
+			<speed_vector x="1.22460635382e-21" y="2e-05" z="0.0"/>
+			<style type="5">
+				<color b="255" g="0" r="255"/>
+			</style>
+		</object>
+	</universe>
+	<universe calc_time="0" id="002" step="0">
+		<maths time="3600"/>
+		<object name="1">
+			<mass>1000.0</mass>
+			<radius>2.0</radius>
+			<coordinates x="-50.0" y="0.0" z="0.0"/>
+			<speed_vector x="1.22460635382e-21" y="2e-05" z="0.0"/>
+			<style type="5">
+				<color b="255" g="255" r="255"/>
+			</style>
+		</object>
+		<object name="2">
+			<mass>1000.0</mass>
+			<radius>2.0</radius>
+			<coordinates x="50.0" y="0.0" z="0.0"/>
+			<speed_vector x="1.22460635382e-21" y="2e-05" z="0.0"/>
+			<style type="5">
+				<color b="255" g="0" r="255"/>
+			</style>
+		</object>
+	</universe>
+</simulation>

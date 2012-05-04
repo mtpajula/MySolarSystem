@@ -74,6 +74,8 @@
     <addaction name="actionFull_screen"/>
     <addaction name="actionLeave_Full_Screen"/>
     <addaction name="separator"/>
+    <addaction name="actionCollision_list"/>
+    <addaction name="separator"/>
     <addaction name="menuShow"/>
    </widget>
    <addaction name="menuFile"/>
@@ -269,6 +271,11 @@
    </property>
    <property name="text">
     <string>Player</string>
+   </property>
+  </action>
+  <action name="actionCollision_list">
+   <property name="text">
+    <string>Collision list</string>
    </property>
   </action>
  </widget>

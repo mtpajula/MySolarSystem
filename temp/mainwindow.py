@@ -2,8 +2,8 @@
 
 # Form implementation generated from reading ui file 'mainwindow.ui'
 #
-# Created: Wed Apr 18 17:54:36 2012
-#      by: pyside-uic 0.2.11 running on PySide 1.0.6
+# Created: Fri May  4 21:58:44 2012
+#      by: pyside-uic 0.2.13 running on PySide 1.1.0
 #
 # WARNING! All changes made in this file will be lost!
 
@@ -118,6 +118,8 @@ class Ui_MainWindow(object):
         self.actionPlayer.setCheckable(True)
         self.actionPlayer.setChecked(True)
         self.actionPlayer.setObjectName("actionPlayer")
+        self.actionCollision_list = QtGui.QAction(MainWindow)
+        self.actionCollision_list.setObjectName("actionCollision_list")
         self.menuFile.addAction(self.actionNew_Simulation)
         self.menuFile.addAction(self.actionOpen)
         self.menuFile.addSeparator()
@@ -132,6 +134,8 @@ class Ui_MainWindow(object):
         self.menuShow.addAction(self.actionPlayer)
         self.menuView.addAction(self.actionFull_screen)
         self.menuView.addAction(self.actionLeave_Full_Screen)
+        self.menuView.addSeparator()
+        self.menuView.addAction(self.actionCollision_list)
         self.menuView.addSeparator()
         self.menuView.addAction(self.menuShow.menuAction())
         self.menubar.addAction(self.menuFile.menuAction())
@@ -175,4 +179,5 @@ class Ui_MainWindow(object):
         self.actionObject_tree.setText(QtGui.QApplication.translate("MainWindow", "Object tree", None, QtGui.QApplication.UnicodeUTF8))
         self.actionNew_Force_Vector.setText(QtGui.QApplication.translate("MainWindow", "New Force Vector", None, QtGui.QApplication.UnicodeUTF8))
         self.actionPlayer.setText(QtGui.QApplication.translate("MainWindow", "Player", None, QtGui.QApplication.UnicodeUTF8))
+        self.actionCollision_list.setText(QtGui.QApplication.translate("MainWindow", "Collision list", None, QtGui.QApplication.UnicodeUTF8))
 

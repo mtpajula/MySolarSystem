@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<simulation>
+	<preferences>
+		<line_color b="111" g="111" r="111"/>
+		<paint steps_between_paint="2" timer_time="10"/>
+		<units dist="m" force="N" mass="kg" speed="kmh" time="d"/>
+		<background_color b="64" g="32" r="64"/>
+		<helper draw_lines="True" line_lenght="10"/>
+	</preferences>
+	<universe calc_time="651600" id="001" step="181">
+		<maths time="1800"/>
+		<object name="mikko">
+			<mass>500.0</mass>
+			<radius>1.0</radius>
+			<coordinates x="3.28199918736" y="3.28199918736" z="0.0"/>
+			<speed_vector x="1.0469045869e-05" y="1.0469045869e-05" z="0.0"/>
+			<style type="5">
+				<color b="85" g="0" r="255"/>
+			</style>
+		</object>
+		<object name="jussi">
+			<mass>1000.0</mass>
+			<radius>2.0</radius>
+			<coordinates x="38.3590004063" y="38.3590004063" z="0.0"/>
+			<speed_vector x="-5.23452293452e-06" y="-5.23452293452e-06" z="0.0"/>
+			<style type="8">
+				<color b="170" g="255" r="170"/>
+			</style>
+		</object>
+	</universe>
+	<universe calc_time="0" id="002" step="0">
+		<maths time="3600"/>
+		<object name="mikko">
+			<mass>500.0</mass>
+			<radius>1.0</radius>
+			<coordinates x="0.0" y="0.0" z="0.0"/>
+			<speed_vector x="0.0" y="0.0" z="0.0"/>
+			<style type="5">
+				<color b="85" g="0" r="255"/>
+			</style>
+		</object>
+		<object name="jussi">
+			<mass>1000.0</mass>
+			<radius>2.0</radius>
+			<coordinates x="40.0" y="40.0" z="0.0"/>
+			<speed_vector x="0.0" y="0.0" z="0.0"/>
+			<style type="8">
+				<color b="170" g="255" r="170"/>
+			</style>
+		</object>
+	</universe>
+</simulation>

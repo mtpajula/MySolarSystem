@@ -1,5 +1,5 @@
 from maths import Maths
-
+from collision import CollisionManager
 
 class Universe(object):
     '''
@@ -11,6 +11,7 @@ class Universe(object):
         self.object_list = []
         
         self.maths = Maths()
+        self.collision_manager = CollisionManager(self.maths)
         
         self.step = 0
         self.calc_time = 0
@@ -46,11 +47,17 @@ class Universe(object):
             for k in range(j, amount):
 
                 #print "\n" + self.object_list[i].name +" + "+self.object_list[k].name
-                del_object = self.maths.gravity(self.object_list[i], self.object_list[k])
-                
+                collision = self.maths.gravity(self.object_list[i], self.object_list[k])
+                '''
                 if del_object is not None:
                     self.object_list.remove(del_object)
                     self.calculate_gravity()
+                    return
+                '''
+                if collision:
+                    del_object = self.collision_manager.record(self.object_list[i], self.object_list[k], self.calc_time)
+                    self.object_list.remove(del_object)
+                    #self.calculate_gravity()
                     return
                 
     def move_objects(self):
@@ -67,27 +74,4 @@ class Universe(object):
         for uni_object in self.object_list:
             self.maths.move(uni_object, self.calc_time)
             
-    def get_day(self):
-        '''
-        return in days the simulation has been run from startpoint
-        '''
-        divider = 3600*24
-        
-        return self.calc_time / divider
-        
-    def get_year(self):
-        '''
-        return in years the simulation has been run from startpoint
-        '''
-        divider = 3600*24*365
-        
-        return self.calc_time / divider
-        
-    def get_hour(self):
-        '''
-        return in hours the simulation has been run from startpoint
-        '''
-        divider = 3600
-        
-        return self.calc_time / divider
             

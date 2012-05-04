@@ -9,6 +9,7 @@ import sys, time
 from random import randint
 from controller import controller
 from paint import Helper, Widget
+from main_collision import Ui_MainCollision
 
 
 class Ui_Main(Ui_MainWindow):
@@ -54,6 +55,7 @@ class Ui_Main(Ui_MainWindow):
         QtCore.QObject.connect(self.actionNew_Simulation, QtCore.SIGNAL("activated()"), self.newSimulation)
         QtCore.QObject.connect(self.actionPrefenrences, QtCore.SIGNAL("activated()"), self.preferences)
         QtCore.QObject.connect(self.actionAbout_MySolarSystem, QtCore.SIGNAL("activated()"), self.about)
+        QtCore.QObject.connect(self.actionCollision_list, QtCore.SIGNAL("activated()"), self.collision_list)
         self.treeWidget.customContextMenuRequested.connect(self.treeMenu)
         self.init_tree()
         
@@ -344,7 +346,7 @@ class Ui_Main(Ui_MainWindow):
             
         else:
             self.statusbar.showMessage('No object selected to edit')
-            
+    
     def do_edit_force(self):
         '''
         open force manager dialog in edit mode
@@ -390,6 +392,17 @@ class Ui_Main(Ui_MainWindow):
         new_object.uinh.setupUi(new_object)
         new_object.setAttribute(QtCore.Qt.WA_DeleteOnClose)
         new_object.exec_()
+        
+    def collision_list(self):
+        '''
+        open collision list
+        '''
+        
+        new_object = QtGui.QDialog()
+        new_object.uinh = Ui_MainCollision(self.controller)
+        new_object.uinh.startMain(new_object)
+        new_object.setAttribute(QtCore.Qt.WA_DeleteOnClose)
+        new_object.exec_()
     
     def newSimulation(self):
         '''
@@ -401,7 +414,7 @@ class Ui_Main(Ui_MainWindow):
         self.helper.line_lenght = self.line_lenght
         self.helper.draw_lines = self.draw_lines
         self.refresh_tree()
-    
+        
     def openFile(self):
         '''
         Open file-open dialog and load simulation from file
