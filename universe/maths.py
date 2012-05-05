@@ -74,7 +74,7 @@ class Maths(object):
 
         else:
             # Collision
-            print "collision"
+            #print "collision"
             
             return True
             
@@ -123,20 +123,20 @@ class Maths(object):
         m1 = uni_obj1.mass
         m2 = uni_obj2.mass
         
-        print "1: " + uni_obj1.name
-        print "2: " + uni_obj2.name
-        print " x1: " + str(x1) + " y1: " + str(y1) + " z1: " + str(z1)
-        print " x2: " + str(x2) + " y2: " + str(y2) + " z2: " + str(z2)
+        #print "1: " + uni_obj1.name
+        #print "2: " + uni_obj2.name
+        #print " x1: " + str(x1) + " y1: " + str(y1) + " z1: " + str(z1)
+        #print " x2: " + str(x2) + " y2: " + str(y2) + " z2: " + str(z2)
         
         x = self.collision_speed(x1, x2, m1, m2)
         y = self.collision_speed(y1, y2, m1, m2)
         z = self.collision_speed(z1, z2, m1, m2)
         
-        print " x: " + str(x) + " y: " + str(y) + " z: " + str(z)
+        #print " x: " + str(x) + " y: " + str(y) + " z: " + str(z)
         
         uni_obj1.mass = m1 + m2
         
-        print "New object 1 mass: " + str(uni_obj1.mass)
+        #print "New object 1 mass: " + str(uni_obj1.mass)
         
         uni_obj1.set_speed(x, y, z)
         

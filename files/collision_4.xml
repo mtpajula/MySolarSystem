@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8"?>
+<simulation>
+	<preferences>
+		<line_color b="111" g="111" r="111"/>
+		<paint steps_between_paint="1" timer_time="10"/>
+		<units dist="km" force="N" mass="mt" speed="ms" time="d"/>
+		<background_color b="64" g="32" r="64"/>
+		<helper draw_lines="True" line_lenght="10"/>
+	</preferences>
+	<universe calc_time="0" id="001" step="0">
+		<maths time="3600"/>
+		<object name="koe">
+			<mass>10000000000.0</mass>
+			<radius>1000.0</radius>
+			<coordinates x="0.0295452161315" y="0.0" z="0.0"/>
+			<speed_vector x="2.21811013615e-08" y="0.0" z="0.0"/>
+			<style type="4">
+				<color b="0" g="0" r="255"/>
+			</style>
+		</object>
+		<object name="toinen">
+			<mass>20000000000.0</mass>
+			<radius>1000.0</radius>
+			<coordinates x="39999.9852274" y="0.0" z="0.0"/>
+			<speed_vector x="-1.10905506807e-08" y="1.3581558831e-24" z="0.0"/>
+			<style type="6">
+				<color b="255" g="127" r="0"/>
+			</style>
+		</object>
+		<object name="iso">
+			<mass>50000000000.0</mass>
+			<radius>2000.0</radius>
+			<coordinates x="20000.0" y="30000.0" z="0.0"/>
+			<speed_vector x="0.0" y="0.0" z="0.0"/>
+			<style type="6">
+				<color b="0" g="0" r="0"/>
+			</style>
+		</object>
+		<object name="isoin">
+			<mass>2e+11</mass>
+			<radius>2000.0</radius>
+			<coordinates x="0.0" y="100000.0" z="0.0"/>
+			<speed_vector x="0.0" y="0.0" z="0.0"/>
+			<style type="6">
+				<color b="0" g="255" r="255"/>
+			</style>
+		</object>
+	</universe>
+	<universe calc_time="0" id="002" step="0">
+		<maths time="3600"/>
+		<object name="koe">
+			<mass>10000000000.0</mass>
+			<radius>1000.0</radius>
+			<coordinates x="0.0295452161315" y="0.0" z="0.0"/>
+			<speed_vector x="2.21811013615e-08" y="0.0" z="0.0"/>
+			<style type="4">
+				<color b="0" g="0" r="255"/>
+			</style>
+		</object>
+		<object name="toinen">
+			<mass>20000000000.0</mass>
+			<radius>1000.0</radius>
+			<coordinates x="39999.9852274" y="0.0" z="0.0"/>
+			<speed_vector x="-1.10905506807e-08" y="1.3581558831e-24" z="0.0"/>
+			<style type="6">
+				<color b="255" g="127" r="0"/>
+			</style>
+		</object>
+		<object name="iso">
+			<mass>50000000000.0</mass>
+			<radius>2000.0</radius>
+			<coordinates x="20000.0" y="30000.0" z="0.0"/>
+			<speed_vector x="0.0" y="0.0" z="0.0"/>
+			<style type="6">
+				<color b="0" g="0" r="0"/>
+			</style>
+		</object>
+		<object name="isoin">
+			<mass>2e+11</mass>
+			<radius>2000.0</radius>
+			<coordinates x="0.0" y="100000.0" z="0.0"/>
+			<speed_vector x="0.0" y="0.0" z="0.0"/>
+			<style type="6">
+				<color b="0" g="255" r="255"/>
+			</style>
+		</object>
+	</universe>
+</simulation>

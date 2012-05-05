@@ -43,6 +43,6 @@ class Ui_Collision(object):
         self.label.setText(QtGui.QApplication.translate("Dialog", "Collisions", None, QtGui.QApplication.UnicodeUTF8))
         self.treeWidget.headerItem().setText(0, QtGui.QApplication.translate("Dialog", "Alive", None, QtGui.QApplication.UnicodeUTF8))
         self.treeWidget.headerItem().setText(1, QtGui.QApplication.translate("Dialog", "Deleted", None, QtGui.QApplication.UnicodeUTF8))
-        self.treeWidget.headerItem().setText(2, QtGui.QApplication.translate("Dialog", "Value", None, QtGui.QApplication.UnicodeUTF8))
+        self.treeWidget.headerItem().setText(2, QtGui.QApplication.translate("Dialog", "Time", None, QtGui.QApplication.UnicodeUTF8))
         self.pushButton.setText(QtGui.QApplication.translate("Dialog", "Close", None, QtGui.QApplication.UnicodeUTF8))
 
